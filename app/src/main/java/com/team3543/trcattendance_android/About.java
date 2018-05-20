@@ -19,6 +19,8 @@ public class About extends AppCompatActivity
         progTitleView.setText(DataStore.PROGRAM_TITLE);
         TextView versionView = (TextView) findViewById (R.id.versionView);
         versionView.setText(DataStore.PROGRAM_VERSION);
+        TextView copyrightView = (TextView) findViewById (R.id.copyrightView);
+        copyrightView.setText(DataStore.COPYRIGHT_MSG);
     }
 
 }
