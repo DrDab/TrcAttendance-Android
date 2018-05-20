@@ -1,0 +1,64 @@
+package com.team3543.trcattendance_android;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+import attendance.Attendant;
+import attendance.AttendanceLog;
+
+public class DataStore
+{
+
+    public static AttendanceLog attendanceLog = null;
+
+    /**
+     * This method reads the session log file if there is one. It will recreate the meeting from the session log.
+     *
+     * @param sessionLogName specifies the session log file name.
+     * @return true if there is a session log file, false otherwise.
+     * @throws FileNotFoundException
+     */
+    public static boolean readExistingSessionLog(String sessionLogName) throws FileNotFoundException
+    {
+        boolean success = false;
+
+        File sessionLogFile = new File(sessionLogName);
+        if (sessionLogFile.exists())
+        {
+            Scanner sessionLog = new Scanner(sessionLogFile);
+            String[] sessionInfo = sessionLog.nextLine().trim().split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+
+            if (sessionInfo.length != 5)
+            {
+                sessionLog.close();
+                throw new IllegalArgumentException("Invalid meeting info.");
+            }
+
+            // onCreateMeeting(sessionInfo[0], sessionInfo[1], sessionInfo[2], sessionInfo[3], sessionInfo[4]);
+            // meetingPane.setMeetingInfo(sessionInfo[0], sessionInfo[1], sessionInfo[2], sessionInfo[3], sessionInfo[4]);
+            while (sessionLog.hasNextLine())
+            {
+                String[] transaction = sessionLog.nextLine().trim().split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+                Attendant attendant = attendanceLog.findAttendant(
+                        transaction[1].substring(1, transaction[1].length() - 1));
+
+                if (transaction[0].equals("CheckIn"))
+                {
+                    // TODO: Check in an attendant in DataStore
+                    // attendancePane.checkInAttendant(attendant, Long.parseLong(transaction[2]), false);
+                }
+                else if (transaction[0].equals("CheckOut"))
+                {
+                    // TODO: Check out an attendant in DataStore
+                    // attendancePane.checkOutAttendant(attendant, Long.parseLong(transaction[2]), false);
+                }
+            }
+            sessionLog.close();
+            success = true;
+        }
+
+        return success;
+    }   //readExistingSessionLog
+
+}

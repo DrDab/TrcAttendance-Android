@@ -9,6 +9,12 @@ import android.view.MenuItem;
 public class MainActivity extends AppCompatActivity
 {
 
+    private static final long serialVersionUID = 1L;
+    private static final String PROGRAM_TITLE = "Trc Attendance Logger";
+    private static final String COPYRIGHT_MSG = "Copyright (c) Titan Robotics Club";
+    private static final String PROGRAM_VERSION = "[version 1.0.0]";
+    private static final String SESSION_LOG_FILE_NAME = "SessionLog.txt";
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -26,6 +32,13 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
+        // Options List:
+        // - New File
+        // - Open File
+        // - Edit File
+        // - Close File
+        // - About
+        // - Exit
         switch (item.getItemId())
         {
             case R.id.action_test:
