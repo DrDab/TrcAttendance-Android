@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TRC Attendance Logger</string>
+    <string name="placeholder">Lorem Ipsum</string>
 </resources>
