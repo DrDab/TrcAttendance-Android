@@ -10,6 +10,15 @@ import attendance.AttendanceLog;
 public class DataStore
 {
 
+    //
+    // The following variables will be displayed in the About page.
+    //
+    public static final long serialVersionUID = 1L;
+    public static final String PROGRAM_TITLE = "Trc Attendance Logger";
+    public static final String COPYRIGHT_MSG = "Copyright (c) Titan Robotics Club";
+    public static final String PROGRAM_VERSION = "[version 1.0.0]";
+    public static final String SESSION_LOG_FILE_NAME = "SessionLog.txt";
+
     public static AttendanceLog attendanceLog = null;
 
     /**

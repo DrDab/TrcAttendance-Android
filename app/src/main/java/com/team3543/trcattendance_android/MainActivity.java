@@ -1,5 +1,6 @@
 package com.team3543.trcattendance_android;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -8,16 +9,6 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity
 {
-
-    //
-    // The following variables will be displayed in the About page.
-    //
-    private static final long serialVersionUID = 1L;
-    private static final String PROGRAM_TITLE = "Trc Attendance Logger";
-    private static final String COPYRIGHT_MSG = "Copyright (c) Titan Robotics Club";
-    private static final String PROGRAM_VERSION = "[version 1.0.0]";
-    private static final String SESSION_LOG_FILE_NAME = "SessionLog.txt";
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -33,8 +24,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
+    public boolean onOptionsItemSelected(MenuItem item) {
         // Options List:
         // - New File
         // - Open File
@@ -42,14 +32,33 @@ public class MainActivity extends AppCompatActivity
         // - Close File
         // - About
         // - Exit
-        switch (item.getItemId())
+        int id = item.getItemId();
+        if (id == R.id.action_newfile)
         {
-            case R.id.action_test:
-            {
-                break;
-            }
+
         }
-        return false;
+        else if (id == R.id.action_openfile)
+        {
+
+        }
+        else if (id == R.id.action_editfile)
+        {
+
+        }
+        else if (id == R.id.action_about)
+        {
+            Intent intent = new Intent(this, About.class);
+            startActivity(intent);
+        }
+        else if (id == R.id.action_exit)
+        {
+
+        }
+        else if (id == R.id.action_closefile)
+        {
+
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

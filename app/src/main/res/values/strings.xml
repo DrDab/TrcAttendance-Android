@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">TRC Attendance Logger</string>
+
+    <string name="newfile">New File</string>
+    <string name="openfile">Open File</string>
+    <string name="editfile">Edit Attendants</string>
+    <string name="closefile">Close File</string>
+    <string name="about">About...</string>
+    <string name="exit">Exit</string>
     <string name="placeholder">Lorem Ipsum</string>
 </resources>

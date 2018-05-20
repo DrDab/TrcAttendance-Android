@@ -3,10 +3,36 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".activity.MainActivity">
+    tools:context="com.team3543.trcattendance_android.MainActivity">
 
     <item
-        android:id="@+id/action_test"
-        android:title="@string/placeholder"
+        android:id="@+id/action_newfile"
+        android:title="@string/newfile"
         app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_openfile"
+        android:title="@string/openfile"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_editfile"
+        android:title="@string/editfile"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_closefile"
+        android:title="@string/closefile"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_about"
+        android:title="@string/about"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_exit"
+        android:title="@string/exit"
+        app:showAsAction="never"/>
+
 </menu>
