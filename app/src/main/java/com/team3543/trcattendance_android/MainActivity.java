@@ -9,6 +9,9 @@ import android.view.MenuItem;
 public class MainActivity extends AppCompatActivity
 {
 
+    //
+    // The following variables will be displayed in the About page.
+    //
     private static final long serialVersionUID = 1L;
     private static final String PROGRAM_TITLE = "Trc Attendance Logger";
     private static final String COPYRIGHT_MSG = "Copyright (c) Titan Robotics Club";
