@@ -31,7 +31,7 @@ import java.util.*;
 public class AttendanceLog
 {
     private File logFile;
-    private ArrayList<Attendant> attendantsList = new ArrayList<Attendant>();
+    public ArrayList<Attendant> attendantsList = new ArrayList<Attendant>();
     private ArrayList<Session> sessionsList = new ArrayList<Session>();
     private boolean fileDirty = false;
     private Session currentSession = null;

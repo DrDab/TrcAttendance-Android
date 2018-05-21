@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import attendance.Attendant;
@@ -28,7 +29,15 @@ public class DataStore
     public static final String PROGRAM_VERSION = "[version 1.0.0]";
     public static String SESSION_LOG_FILE_NAME = "SessionLog.txt";
 
+    public static File readDirectory = null;
+
+    public static String[] tempAddStudents = null;
+
     public static AttendanceLog attendanceLog = null;
+
+    public static ArrayList<Attendant> checkInList = null;
+    public static ArrayList<Attendant> checkOutList = null;
+    public static ArrayList<Attendant> allAttendants = null;
 
     /**
      * This method reads the session log file if there is one. It will recreate the meeting from the session log.
@@ -115,13 +124,67 @@ public class DataStore
 
     public static void initIO()
     {
-        File readDirectory = new File(Environment.getExternalStorageDirectory(), "TrcAttendance");
+        readDirectory = new File(Environment.getExternalStorageDirectory(), "TrcAttendance");
         if (!readDirectory.exists())
         {
             readDirectory.mkdir();
         }
         File readFile = new File(readDirectory, "SessionLog.txt");
         SESSION_LOG_FILE_NAME = readFile.toString();
+    }
+
+    public static boolean fileExists(String name)
+    {
+        File test = new File(readDirectory, name);
+        if (test.exists() && !test.isDirectory())
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public static void newCSV(String name)
+    {
+        checkInList = new ArrayList<Attendant>();
+        checkOutList = new ArrayList<Attendant>();
+        allAttendants = new ArrayList<Attendant>();
+        try
+        {
+            File test = new File(readDirectory, name);
+            attendanceLog = new AttendanceLog(test, true);
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+        String[] toAdd = null;
+
+        // TODO: Ask for a list of attendants from Layer 8 and add them to the array toAdd.
+        // TODO: Then add these attendants to attendanceLog.
+
+
+        attendanceLog.updateAttendants(toAdd);
+    }
+
+    public static void loadCSV(String name)
+    {
+        checkInList = new ArrayList<Attendant>();
+        checkOutList = new ArrayList<Attendant>();
+        allAttendants = new ArrayList<Attendant>();
+        try
+        {
+            attendanceLog = new AttendanceLog(new File(readDirectory, name), false);
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+        for(int i = 0; i < attendanceLog.attendantsList.size(); i++)
+        {
+            Attendant lol = attendanceLog.attendantsList.get(i);
+            allAttendants.add(lol);
+            checkInList.add(lol);
+        }
     }
 
     public static boolean verifyStoragePermissions(Activity activity)
@@ -138,5 +201,54 @@ public class DataStore
         }
         return true;
     }
+
+    /**
+     * This method checks in the selected attendant by moving the attendant from the check-in
+     * list to the check-out list and mark the log file as dirty. If sessionLog is true, it also
+     * writes a transaction entry to the session log.
+     *
+     * @param attendant specifies the attendant to be checked in.
+     * @param timestamp specifies the check-in time.
+     * @param logTransaction specifies true to log a transaction entry in the session log.
+     */
+    public void checkInAttendant(Attendant attendant, long timestamp, boolean logTransaction)
+    {
+        if (attendant != null)
+        {
+            if (logTransaction)
+            {
+                logTransaction(false, attendant, timestamp);
+            }
+            attendant.checkIn(timestamp);
+            // checkInList.removeItem(attendant);
+            // checkOutList.addItem(attendant);
+            attendanceLog.setFileDirty();
+        }
+    }   //checkInAttendant
+
+    /**
+     * This method checks out the selected attendant by moving the attendant from the check-out
+     * list back to the check-in list and mark the log file as dirty. If sessionLog is true, it also
+     * writes a transaction entry to the session log.
+     *
+     * @param attendant specifies the attendant to be checked out.
+     * @param timestamp specifies the check-out time.
+     * @param logTransaction specifies true to log a transaction entry in the session log.
+     */
+    public void checkOutAttendant(Attendant attendant, long timestamp, boolean logTransaction)
+    {
+        if (attendant != null)
+        {
+            if (logTransaction)
+            {
+                logTransaction(true, attendant, timestamp);
+            }
+            attendant.checkOut(timestamp);
+            // checkOutList.removeItem(attendant);
+            // checkInList.addItem(attendant);
+            attendanceLog.setFileDirty();
+        }
+    }   //checkOutAttendant
+
 
 }

@@ -1,5 +1,6 @@
 package com.team3543.trcattendance_android;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -7,11 +8,12 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CheckBox;
 import android.widget.EditText;
+
+import java.io.File;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -97,7 +99,37 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         if (id == R.id.action_newfile)
         {
-
+            try
+            {
+                final String[] recipient = {""};
+                final EditText txtUrl = new EditText(this);
+                new AlertDialog.Builder(this)
+                        .setTitle("New File")
+                        .setMessage("Please enter the name of the CSV file.")
+                        .setView(txtUrl)
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener()
+                        {
+                            public void onClick(DialogInterface dialog, int whichButton)
+                            {
+                                recipient[0] = txtUrl.getText().toString();
+                                if (DataStore.fileExists(recipient[0]))
+                                {
+                                    drawOverwriteWarning(recipient[0]);
+                                }
+                                else
+                                {
+                                    DataStore.newCSV(recipient[0]);
+                                }
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+                        { public void onClick(DialogInterface dialog, int whichButton) {} }).show();
+            }
+            catch (Exception arg0)
+            {
+                // TODO Auto-generated catch block
+                arg0.printStackTrace();
+            }
         }
         else if (id == R.id.action_openfile)
         {
@@ -132,6 +164,25 @@ public class MainActivity extends AppCompatActivity
             resIcon.mutate().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
         }
         menuItem.setIcon(resIcon);
+    }
+
+    public void drawOverwriteWarning(final String filename0)
+    {
+        new AlertDialog.Builder(this)
+                .setTitle("Are you sure?")
+                .setMessage("Are you sure you want to clear the contest history?")
+                .setPositiveButton("YES", new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int whichButton)
+                    {
+                        new File(DataStore.readDirectory, filename0).delete();
+                        DataStore.newCSV(filename0);
+                    }
+                })
+                .setNegativeButton("NO", new DialogInterface.OnClickListener()
+                {
+                        public void onClick(DialogInterface dialog, int whichButton) {}
+                }).show();
     }
 
     public void disableEditText(EditText editText)
