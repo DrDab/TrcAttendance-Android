@@ -23,6 +23,11 @@ public class MainActivity extends AppCompatActivity
     private EditText meetingDD;
     private EditText meetingYYYY;
 
+    private CheckBox mechanicalBox;
+    private CheckBox programmingBox;
+    private CheckBox driveBox;
+    private CheckBox otherBox;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,9 +51,20 @@ public class MainActivity extends AppCompatActivity
         meetingMM = (EditText) findViewById(R.id.dateMM);
         meetingDD = (EditText) findViewById(R.id.dateDD);
         meetingYYYY = (EditText) findViewById(R.id.dateYYYY);
+
+        mechanicalBox = (CheckBox) findViewById(R.id.mechanicalBox);
+        programmingBox = (CheckBox) findViewById(R.id.programmingBox);
+        driveBox = (CheckBox) findViewById(R.id.driveBox);
+        otherBox = (CheckBox) findViewById(R.id.otherBox);
+
         disableEditText(meetingMM);
         disableEditText(meetingDD);
         disableEditText(meetingYYYY);
+
+        disableCheckBox(mechanicalBox);
+        disableCheckBox(programmingBox);
+        disableCheckBox(driveBox);
+        disableCheckBox(otherBox);
 
     }
 
