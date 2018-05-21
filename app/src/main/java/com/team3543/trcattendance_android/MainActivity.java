@@ -10,12 +10,17 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity
 {
 
     private boolean isOkToEdit = false;
     private boolean isOkToClose = false;
+
+    private EditText meetingMM;
+    private EditText meetingDD;
+    private EditText meetingYYYY;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +41,14 @@ public class MainActivity extends AppCompatActivity
             return;
         }
 
+        // disable the entry boxes at startup (because no file is loaded at startup)
+        meetingMM = (EditText) findViewById(R.id.dateMM);
+        meetingDD = (EditText) findViewById(R.id.dateDD);
+        meetingYYYY = (EditText) findViewById(R.id.dateYYYY);
+        disableEditText(meetingMM);
+        disableEditText(meetingDD);
+        disableEditText(meetingYYYY);
+        
     }
 
     @Override
@@ -102,6 +115,11 @@ public class MainActivity extends AppCompatActivity
             resIcon.mutate().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
         }
         menuItem.setIcon(resIcon);
+    }
+
+    public void disableEditText(EditText editText)
+    {
+        editText.setFocusableInTouchMode(true);
     }
 
 }

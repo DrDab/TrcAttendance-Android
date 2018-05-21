@@ -13,6 +13,81 @@
         android:layout_height="match_parent"
         tools:context="com.team3543.trcattendance_android.MainActivity">
 
+        <EditText
+            android:id="@+id/dateYYYY"
+            android:layout_width="63dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="216dp"
+            android:ems="10"
+            android:hint="YYYY"
+            android:inputType="textPersonName"
+            app:layout_constraintStart_toEndOf="@+id/textView8"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="216dp"
+            android:text="/"
+            android:textColor="@android:color/black"
+            android:textSize="24sp"
+            app:layout_constraintStart_toEndOf="@+id/dateDD"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/dateDD"
+            android:layout_width="51dp"
+            android:layout_height="43dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="212dp"
+            android:ems="10"
+            android:hint="DD"
+            android:inputType="textPersonName"
+            app:layout_constraintStart_toEndOf="@+id/textView6"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="216dp"
+            android:text="/"
+            android:textColor="@android:color/black"
+            android:textSize="24sp"
+            app:layout_constraintStart_toEndOf="@+id/dateMM"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/dateMM"
+            android:layout_width="51dp"
+            android:layout_height="43dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="212dp"
+            android:ems="10"
+            android:hint="MM"
+            android:inputType="textPersonName"
+            app:layout_constraintStart_toEndOf="@+id/textView4"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="DATE"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.098"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/otherBox" />
+
         <CheckBox
             android:id="@+id/otherBox"
             android:layout_width="wrap_content"
