@@ -2,6 +2,7 @@ package com.team3543.trcattendance_android;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -30,10 +31,12 @@ public class EditAttendantList extends AppCompatActivity
         String[] tmp = new String[attendantNames.size()];
         for(int i = 0; i < tmp.length; i++)
         {
+            Log.d("EditAttendantsList", "attendants[" + i + "]= " + attendantNames.get(i));
             tmp[i] = attendantNames.get(i);
         }
         DataStore.tempAddStudents = tmp;
         DataStore.attendanceLog.updateAttendants(DataStore.tempAddStudents);
+        DataStore.writeInit();
         finish();
     }
 }

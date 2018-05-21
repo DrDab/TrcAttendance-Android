@@ -123,8 +123,6 @@ public class MainActivity extends AppCompatActivity
                                 {
                                     DataStore.newCSV(recipient[0]);
                                     IGotMistakenlyHandedACalculatorOnAnAPTestAndIAmTakingTheBlameHelpMe();
-                                    DataStore.writeInit();
-                                    DataStore.loadCSV(recipient[0]);
                                 }
                             }
                         })
