@@ -1,5 +1,6 @@
 package com.team3543.trcattendance_android;
 
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,8 +21,13 @@ public class EditAttendantList extends AppCompatActivity
 
     public void confirmData(View view)
     {
+        boolean check = false;
         EditText editText = (EditText) findViewById(R.id.attendantEntries);
         String attendantEntries = editText.getText().toString();
+        if (attendantEntries.matches(""))
+        {
+            check = !check;
+        }
         ArrayList<String> attendantNames = new ArrayList<String>();
         Scanner sc = new Scanner(attendantEntries);
         while(sc.hasNextLine())
@@ -37,6 +43,14 @@ public class EditAttendantList extends AppCompatActivity
         DataStore.tempAddStudents = tmp;
         DataStore.attendanceLog.updateAttendants(DataStore.tempAddStudents);
         DataStore.writeInit();
-        finish();
+        if (!check)
+        {
+            finish();
+        }
+        else
+        {
+            Snackbar.make(view, "Attendants list cannot be empty.", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+        }
     }
 }
