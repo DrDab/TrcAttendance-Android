@@ -130,7 +130,12 @@ public class MainActivity extends AppCompatActivity
 
     public void disableCheckBox(CheckBox checkBox)
     {
-        // checkBox.
+        checkBox.setEnabled(false);
+    }
+
+    public void enableCheckBox(CheckBox checkBox)
+    {
+        checkBox.setEnabled(true);
     }
 
 }
