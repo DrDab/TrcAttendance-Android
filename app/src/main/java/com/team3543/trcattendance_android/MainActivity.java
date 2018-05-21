@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity
         disableEditText(meetingMM);
         disableEditText(meetingDD);
         disableEditText(meetingYYYY);
-        
+
     }
 
     @Override
@@ -119,7 +120,17 @@ public class MainActivity extends AppCompatActivity
 
     public void disableEditText(EditText editText)
     {
+        editText.setFocusableInTouchMode(false);
+    }
+
+    public void enableEditText(EditText editText)
+    {
         editText.setFocusableInTouchMode(true);
+    }
+
+    public void disableCheckBox(CheckBox checkBox)
+    {
+        // checkBox.
     }
 
 }
