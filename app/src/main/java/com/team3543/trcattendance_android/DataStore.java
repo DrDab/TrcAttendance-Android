@@ -2,6 +2,8 @@ package com.team3543.trcattendance_android;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.util.Scanner;
 
 import attendance.Attendant;
@@ -69,5 +71,39 @@ public class DataStore
 
         return success;
     }   //readExistingSessionLog
+
+    /**
+     * This method writes a transaction entry to the session log.
+     *
+     * @param checkOut specifies true if it is a check-out transaction, false if it is a check-in transaction.
+     * @param attendant specifies the attendant.
+     * @param timestamp specifies the transaction time.
+     */
+    public void logTransaction(boolean checkOut, Attendant attendant, long timestamp)
+    {
+        File sessionFile = new File(SESSION_LOG_FILE_NAME);
+        boolean exist = sessionFile.exists();
+
+        try
+        {
+            PrintStream sessionLog = new PrintStream(new FileOutputStream(sessionFile, exist));
+
+            if (!exist)
+            {
+                sessionLog.println(attendanceLog.getCurrentSession());
+            }
+            sessionLog.printf("%s,\"%s\",%d\n", checkOut? "CheckOut": "CheckIn", attendant, timestamp);
+            sessionLog.close();
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+    }   //logTransaction
+
+    public static long getEpochTime()
+    {
+        return System.currentTimeMillis();
+    }
 
 }
