@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -17,10 +18,24 @@ public class MainActivity extends AppCompatActivity
     private boolean isOkToClose = false;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // check if we have storage permissions first
+        if (DataStore.verifyStoragePermissions(this))
+        {
+            DataStore.initIO();
+        }
+        else
+        {
+            AlertDialog alertDialog1 = new AlertDialog.Builder(MainActivity.this).create();
+            alertDialog1.setTitle("Warning! (DON'T CLOSE)");
+            alertDialog1.setMessage("Please go into Settings > Apps > \"TRC Attendance Logger\" > Permissions and check Storage.");
+            alertDialog1.show();
+            return;
+        }
+
     }
 
     @Override

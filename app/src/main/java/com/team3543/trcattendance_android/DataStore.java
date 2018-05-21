@@ -1,5 +1,12 @@
 package com.team3543.trcattendance_android;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.pm.PackageManager;
+import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
+import android.util.Log;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -19,7 +26,7 @@ public class DataStore
     public static final String PROGRAM_TITLE = "Trc Attendance Logger";
     public static final String COPYRIGHT_MSG = "Copyright (c) Titan Robotics Club";
     public static final String PROGRAM_VERSION = "[version 1.0.0]";
-    public static final String SESSION_LOG_FILE_NAME = "SessionLog.txt";
+    public static String SESSION_LOG_FILE_NAME = "SessionLog.txt";
 
     public static AttendanceLog attendanceLog = null;
 
@@ -104,6 +111,32 @@ public class DataStore
     public static long getEpochTime()
     {
         return System.currentTimeMillis();
+    }
+
+    public static void initIO()
+    {
+        File readDirectory = new File(Environment.getExternalStorageDirectory(), "TrcAttendance");
+        if (!readDirectory.exists())
+        {
+            readDirectory.mkdir();
+        }
+        File readFile = new File(readDirectory, "SessionLog.txt");
+        SESSION_LOG_FILE_NAME = readFile.toString();
+    }
+
+    public static boolean verifyStoragePermissions(Activity activity)
+    {
+        // Check if we have write permission
+        int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        Log.d("FileIO", "Checking File I/O Permissions...");
+        if (permission != PackageManager.PERMISSION_GRANTED)
+        {
+            // We don't have permission so prompt the user
+            Log.d("FileIO", "File permissions insufficient, requesting privileges...");
+            return false;
+
+        }
+        return true;
     }
 
 }
