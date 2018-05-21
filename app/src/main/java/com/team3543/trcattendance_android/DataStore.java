@@ -12,6 +12,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Scanner;
 
 import attendance.Attendant;
@@ -157,13 +159,18 @@ public class DataStore
         {
             e.printStackTrace();
         }
-        String[] toAdd = null;
+    }
 
-        // TODO: Ask for a list of attendants from Layer 8 and add them to the array toAdd.
-        // TODO: Then add these attendants to attendanceLog.
-
-
-        attendanceLog.updateAttendants(toAdd);
+    public static void writeInit()
+    {
+        try
+        {
+            attendanceLog.closeLogFile();
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     public static void loadCSV(String name)
@@ -220,8 +227,18 @@ public class DataStore
                 logTransaction(false, attendant, timestamp);
             }
             attendant.checkIn(timestamp);
-            // checkInList.removeItem(attendant);
-            // checkOutList.addItem(attendant);
+
+            int removeIdx = findAttendant(checkInList, attendant);
+            checkInList.remove(removeIdx);
+            checkOutList.add(attendant);
+            Collections.sort(checkOutList, new Comparator<Attendant>()
+            {
+                @Override
+                public int compare(Attendant lhs, Attendant rhs)
+                {
+                    return lhs.compareTo(rhs);
+                }
+            });
             attendanceLog.setFileDirty();
         }
     }   //checkInAttendant
@@ -250,5 +267,37 @@ public class DataStore
         }
     }   //checkOutAttendant
 
+    /**
+     * This method will return the index of an attendant (search) inside a sorted ArrayList attendants,
+     * or -1 if there is NO attendant found.
+     *
+     * @param attendants is a SORTED ArrayList of attendants to search for the specified Attendant in.
+     * @param search specifies the Attendant to search for in the ArrayList attendants.
+     * @return the index of the attendant in question, or -1 if attendant is NOT found.
+     */
+    public static int findAttendant(ArrayList<Attendant> attendants, Attendant search)
+    {
+        int first = 0;
+        int last = attendants.size() - 1;
+        int mid;
+        while (first <= last)
+        {
+            mid = (first + last) / 2;
+            if (search == attendants.get(mid))
+            {
+                return mid;
+            }
+            else if (search.compareTo(attendants.get(mid)) > 0)
+            {
+                last = mid - 1;
+            }
+            else
+            {
+                first = mid + 1;
+            }
+        }
+
+        return -1;
+    }
 
 }

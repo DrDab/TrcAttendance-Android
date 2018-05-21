@@ -79,6 +79,11 @@ public class Attendant
         }
     }   //Attendant
 
+    public int compareTo(Attendant attendant)
+    {
+        return name.compareTo(attendant.toString());
+    }
+
     /**
      * This method returns the name of the attendant.
      *

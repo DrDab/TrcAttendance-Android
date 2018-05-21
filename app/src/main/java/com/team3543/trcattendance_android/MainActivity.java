@@ -14,6 +14,9 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 
 import java.io.File;
+import java.util.ArrayList;
+
+import attendance.Attendant;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -119,6 +122,9 @@ public class MainActivity extends AppCompatActivity
                                 else
                                 {
                                     DataStore.newCSV(recipient[0]);
+                                    IGotMistakenlyHandedACalculatorOnAnAPTestAndIAmTakingTheBlameHelpMe();
+                                    DataStore.writeInit();
+                                    DataStore.loadCSV(recipient[0]);
                                 }
                             }
                         })
@@ -170,13 +176,14 @@ public class MainActivity extends AppCompatActivity
     {
         new AlertDialog.Builder(this)
                 .setTitle("Are you sure?")
-                .setMessage("Are you sure you want to clear the contest history?")
+                .setMessage("This file already exists. Are you sure you want to overwrite an existing file?")
                 .setPositiveButton("YES", new DialogInterface.OnClickListener()
                 {
                     public void onClick(DialogInterface dialog, int whichButton)
                     {
                         new File(DataStore.readDirectory, filename0).delete();
                         DataStore.newCSV(filename0);
+                        IGotMistakenlyHandedACalculatorOnAnAPTestAndIAmTakingTheBlameHelpMe();
                     }
                 })
                 .setNegativeButton("NO", new DialogInterface.OnClickListener()
@@ -203,6 +210,12 @@ public class MainActivity extends AppCompatActivity
     public void enableCheckBox(CheckBox checkBox)
     {
         checkBox.setEnabled(true);
+    }
+
+    public void IGotMistakenlyHandedACalculatorOnAnAPTestAndIAmTakingTheBlameHelpMe()
+    {
+        Intent intent = new Intent(this, EditAttendantList.class);
+        startActivity(intent);
     }
 
 }
