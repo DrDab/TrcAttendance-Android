@@ -37,8 +37,8 @@ public class DataStore
 
     public static AttendanceLog attendanceLog = null;
 
-    public static ArrayList<Attendant> checkInList = null;
-    public static ArrayList<Attendant> checkOutList = null;
+    public static ArrayList<String> checkInList = null;
+    public static ArrayList<String> checkOutList = null;
     public static ArrayList<Attendant> allAttendants = null;
 
     public static boolean havePrevAttendants = false;
@@ -153,8 +153,8 @@ public class DataStore
     public static void newCSV(String name)
     {
         havePrevAttendants = false;
-        checkInList = new ArrayList<Attendant>();
-        checkOutList = new ArrayList<Attendant>();
+        checkInList = new ArrayList<String>();
+        checkOutList = new ArrayList<String>();
         allAttendants = new ArrayList<Attendant>();
         File test = null;
         try
@@ -186,8 +186,8 @@ public class DataStore
     public static void loadCSV(String name)
     {
         havePrevAttendants = false;
-        checkInList = new ArrayList<Attendant>();
-        checkOutList = new ArrayList<Attendant>();
+        checkInList = new ArrayList<String>();
+        checkOutList = new ArrayList<String>();
         allAttendants = new ArrayList<Attendant>();
         try
         {
@@ -201,7 +201,7 @@ public class DataStore
         {
             Attendant lol = attendanceLog.attendantsList.get(i);
             allAttendants.add(lol);
-            checkInList.add(lol);
+            checkInList.add(lol.toString());
         }
         havePrevAttendants = true;
         isOkToClose = true;
@@ -242,17 +242,10 @@ public class DataStore
             }
             attendant.checkIn(timestamp);
 
-            int removeIdx = findAttendant(checkInList, attendant);
+            int removeIdx = findAttendant(checkInList, attendant.toString());
             checkInList.remove(removeIdx);
-            checkOutList.add(attendant);
-            Collections.sort(checkOutList, new Comparator<Attendant>()
-            {
-                @Override
-                public int compare(Attendant lhs, Attendant rhs)
-                {
-                    return lhs.compareTo(rhs);
-                }
-            });
+            checkOutList.add(attendant.toString());
+            Collections.sort(checkOutList);
             attendanceLog.setFileDirty();
         }
     }   //checkInAttendant
@@ -275,17 +268,10 @@ public class DataStore
                 logTransaction(true, attendant, timestamp);
             }
             attendant.checkOut(timestamp);
-            int removeIdx = findAttendant(checkOutList, attendant);
+            int removeIdx = findAttendant(checkOutList, attendant.toString());
             checkOutList.remove(removeIdx);
-            checkInList.add(attendant);
-            Collections.sort(checkInList, new Comparator<Attendant>()
-            {
-                @Override
-                public int compare(Attendant lhs, Attendant rhs)
-                {
-                    return lhs.compareTo(rhs);
-                }
-            });
+            checkInList.add(attendant.toString());
+            Collections.sort(checkInList);
             attendanceLog.setFileDirty();
         }
     }   //checkOutAttendant
@@ -298,7 +284,7 @@ public class DataStore
      * @param search specifies the Attendant to search for in the ArrayList attendants.
      * @return the index of the attendant in question, or -1 if attendant is NOT found.
      */
-    public static int findAttendant(ArrayList<Attendant> attendants, Attendant search)
+    public static int findAttendant(ArrayList<String> attendants, String search)
     {
         int first = 0;
         int last = attendants.size() - 1;
@@ -319,8 +305,20 @@ public class DataStore
                 first = mid + 1;
             }
         }
-
         return -1;
+    }
+
+    public static String[] getSessionInfo(int month, int day, int year, int startHr, int startMin, int endHr, int endMin, String place, String meeting)
+    {
+        // "Date", "Start Time", "End Time", "Place", "Meeting"
+        // MM/DD/YYYY, HH:MM, HH:MM, xxxxxxxxxxxxxxxxxxxx, (Mechanical/Programming/Drive/Other)
+        String[] tmp = new String[5];
+        tmp[0] = month + "/" + day + "/" + year;
+        tmp[1] = startHr + ":" + startMin;
+        tmp[2] = endHr + ":" + endMin;
+        tmp[3] = place;
+        tmp[4] = meeting;
+        return tmp;
     }
 
 }

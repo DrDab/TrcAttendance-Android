@@ -5,12 +5,15 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
@@ -36,6 +39,8 @@ public class MainActivity extends AppCompatActivity
     private EditText endMM;
 
     private EditText placeLocation;
+
+    private Button createMeetingButton;
 
     public static boolean newFlag = false;
     public static String nameFlag = "";
@@ -78,6 +83,8 @@ public class MainActivity extends AppCompatActivity
 
         placeLocation = (EditText) findViewById(R.id.placeLocation);
 
+        createMeetingButton = (Button) findViewById((R.id.button_createMeeting));
+
         disableEditText(meetingMM);
         disableEditText(meetingDD);
         disableEditText(meetingYYYY);
@@ -94,6 +101,8 @@ public class MainActivity extends AppCompatActivity
         disableEditText(endMM);
 
         disableEditText(placeLocation);
+
+        disableButton(createMeetingButton);
 
     }
 
@@ -187,6 +196,8 @@ public class MainActivity extends AppCompatActivity
                     enableEditText(endMM);
 
                     enableEditText(placeLocation);
+
+                    enableButton(createMeetingButton);
                 }
             }).showDialog();
         }
@@ -263,6 +274,16 @@ public class MainActivity extends AppCompatActivity
         checkBox.setEnabled(true);
     }
 
+    public void enableButton(Button button)
+    {
+        button.setEnabled(true);
+    }
+
+    public void disableButton(Button button)
+    {
+        button.setEnabled(false);
+    }
+
     public void IGotMistakenlyHandedACalculatorOnAnAPTestAndIAmTakingTheBlameHelpMe()
     {
         Intent intent = new Intent(this, EditAttendantList.class);
@@ -291,6 +312,8 @@ public class MainActivity extends AppCompatActivity
 
             enableEditText(placeLocation);
 
+            enableButton(createMeetingButton);
+
             DataStore.loadCSV((String) new File(DataStore.readDirectory, nameFlag).toString());
 
             // for(int i = 0; i < DataStore.attendanceLog.attendantsList.size(); i++)
@@ -301,6 +324,109 @@ public class MainActivity extends AppCompatActivity
             // }
 
             newFlag = false;
+        }
+    }
+
+    public void onCreateMeetingButtonClicked(View view)
+    {
+        String[] info = null;
+        // parse the start and end times, date from the forms.
+        // MM/DD/YYYY, HH:MM, HH:MM, xxxxxxxxxxxxxxxxxxxx, (Mechanical/Programming/Drive/Other)
+        boolean b = true;
+        int month = -1;
+        int day = -1;
+        int year = -1;
+        int startHour = -1;
+        int startMinute = -1;
+        int endHour = -1;
+        int endMinute = -1;
+        String place = "";
+        String meetingType = "";
+        try
+        {
+            month = Integer.parseInt(meetingMM.getText().toString());
+            day = Integer.parseInt(meetingDD.getText().toString());
+            year = Integer.parseInt(meetingYYYY.getText().toString());
+        }
+        catch(NumberFormatException e)
+        {
+            Snackbar.make(view, "Issue with date formatting", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+            b = false;
+        }
+        catch(NullPointerException e)
+        {
+            Snackbar.make(view, "Date cannot be empty", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+            b = false;
+        }
+
+        try
+        {
+            startHour = Integer.parseInt(startHH.getText().toString());
+            startMinute = Integer.parseInt(startMM.getText().toString());
+            endHour = Integer.parseInt(endHH.getText().toString());
+            endMinute = Integer.parseInt(endMM.getText().toString());
+        }
+        catch(NumberFormatException e)
+        {
+            Snackbar.make(view, "Issue with time formatting", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+            b = false;
+        }
+        catch(NullPointerException e)
+        {
+            Snackbar.make(view, "Time cannot be empty", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+            b = false;
+        }
+
+        place = placeLocation.getText().toString();
+
+        int cnt = 0;
+
+        if(mechanicalBox.isChecked())
+        {
+            meetingType += "Mechanical";
+            cnt++;
+        }
+        if(programmingBox.isChecked())
+        {
+            if(cnt > 0)
+            {
+                cnt--;
+                meetingType += "/";
+            }
+            meetingType += "Programming";
+            cnt++;
+        }
+        if(driveBox.isChecked())
+        {
+            if(cnt > 0)
+            {
+                cnt--;
+                meetingType += "/";
+            }
+            meetingType += "Drive";
+            cnt++;
+        }
+        if(otherBox.isChecked())
+        {
+            if(cnt > 0)
+            {
+                cnt--;
+                meetingType += "/";
+            }
+            meetingType += "Other";
+            cnt++;
+        }
+
+        info = DataStore.getSessionInfo(month, day, year, startHour, startMinute, endHour, endMinute, place, meetingType);
+
+        if (b)
+        {
+            disableButton(createMeetingButton);
+            DataStore.attendanceLog.createSession(info);
         }
     }
 
