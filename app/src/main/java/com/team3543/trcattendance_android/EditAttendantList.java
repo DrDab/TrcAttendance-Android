@@ -51,6 +51,7 @@ public class EditAttendantList extends AppCompatActivity
             DataStore.attendanceLog.updateAttendants(DataStore.tempAddStudents);
             DataStore.writeInit();
             DataStore.havePrevAttendants = true;
+            MainActivity.newFlag = true;
             finish();
         }
         else

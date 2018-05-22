@@ -20,10 +20,6 @@ import attendance.Attendant;
 
 public class MainActivity extends AppCompatActivity
 {
-
-    private boolean isOkToEdit = false;
-    private boolean isOkToClose = false;
-
     private EditText meetingMM;
     private EditText meetingDD;
     private EditText meetingYYYY;
@@ -38,8 +34,11 @@ public class MainActivity extends AppCompatActivity
     private EditText endHH;
     private EditText endMM;
 
+    public static boolean newFlag = false;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -101,9 +100,9 @@ public class MainActivity extends AppCompatActivity
     public boolean onPrepareOptionsMenu(Menu menu)
     {
         MenuItem edit = menu.findItem(R.id.action_editfile);
-        setGreyedOut(edit, !isOkToEdit);
+        setGreyedOut(edit, !DataStore.isOkToEdit);
         MenuItem close = menu.findItem(R.id.action_closefile);
-        setGreyedOut(close, !isOkToClose);
+        setGreyedOut(close, !DataStore.isOkToClose);
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -163,6 +162,21 @@ public class MainActivity extends AppCompatActivity
                     // do something with the file
                     DataStore.toOpen = file;
                     DataStore.loadCSV(DataStore.toOpen.toString());
+
+                    enableEditText(meetingMM);
+                    enableEditText(meetingDD);
+                    enableEditText(meetingYYYY);
+
+                    enableCheckBox(mechanicalBox);
+                    enableCheckBox(programmingBox);
+                    enableCheckBox(driveBox);
+                    enableCheckBox(otherBox);
+
+                    enableEditText(startHH);
+                    enableEditText(startMM);
+
+                    enableEditText(endHH);
+                    enableEditText(endMM);
                 }
             }).showDialog();
         }
@@ -217,7 +231,7 @@ public class MainActivity extends AppCompatActivity
                 }).show();
     }
 
-    public void disableEditText(EditText editText)
+    public static void disableEditText(EditText editText)
     {
         editText.setFocusableInTouchMode(false);
     }
@@ -241,6 +255,25 @@ public class MainActivity extends AppCompatActivity
     {
         Intent intent = new Intent(this, EditAttendantList.class);
         startActivity(intent);
+
+        if (newFlag)
+        {
+            newFlag = !newFlag;
+            enableEditText(meetingMM);
+            enableEditText(meetingDD);
+            enableEditText(meetingYYYY);
+
+            enableCheckBox(mechanicalBox);
+            enableCheckBox(programmingBox);
+            enableCheckBox(driveBox);
+            enableCheckBox(otherBox);
+
+            enableEditText(startHH);
+            enableEditText(startMM);
+
+            enableEditText(endHH);
+            enableEditText(endMM);
+        }
     }
 
 }

@@ -45,6 +45,9 @@ public class DataStore
 
     public static File toOpen = null;
 
+    public static boolean isOkToEdit = false;
+    public static boolean isOkToClose = false;
+
     /**
      * This method reads the session log file if there is one. It will recreate the meeting from the session log.
      *
@@ -157,6 +160,8 @@ public class DataStore
         {
             File test = new File(readDirectory, name);
             attendanceLog = new AttendanceLog(test, true);
+            isOkToClose = true;
+            isOkToEdit = true;
         }
         catch (FileNotFoundException e)
         {
@@ -197,6 +202,8 @@ public class DataStore
             checkInList.add(lol);
         }
         havePrevAttendants = true;
+        isOkToClose = true;
+        isOkToEdit = true;
     }
 
     public static boolean verifyStoragePermissions(Activity activity)
