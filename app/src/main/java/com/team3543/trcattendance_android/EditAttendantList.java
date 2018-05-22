@@ -12,6 +12,8 @@ import java.util.Scanner;
 
 public class EditAttendantList extends AppCompatActivity
 {
+    private static String toLoad = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -20,7 +22,13 @@ public class EditAttendantList extends AppCompatActivity
         if (DataStore.havePrevAttendants)
         {
             // populate the list with the names of the attendants, row by row
-
+            EditText editText = (EditText) findViewById(R.id.attendantEntries);
+            toLoad = "";
+            for(int i = 0; i < DataStore.allAttendants.size(); i++)
+            {
+                toLoad += DataStore.allAttendants.get(i).toString() + "\n";
+            }
+            editText.setText(toLoad);
         }
     }
 

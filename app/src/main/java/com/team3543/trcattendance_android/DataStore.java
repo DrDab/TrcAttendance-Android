@@ -156,9 +156,10 @@ public class DataStore
         checkInList = new ArrayList<Attendant>();
         checkOutList = new ArrayList<Attendant>();
         allAttendants = new ArrayList<Attendant>();
+        File test = null;
         try
         {
-            File test = new File(readDirectory, name);
+            test = new File(readDirectory, name);
             attendanceLog = new AttendanceLog(test, true);
             isOkToClose = true;
             isOkToEdit = true;
@@ -167,6 +168,7 @@ public class DataStore
         {
             e.printStackTrace();
         }
+        loadCSV(test.toString());
     }
 
     public static void writeInit()

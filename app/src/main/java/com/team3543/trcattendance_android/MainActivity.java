@@ -183,7 +183,9 @@ public class MainActivity extends AppCompatActivity
         }
         else if (id == R.id.action_editfile)
         {
-
+            DataStore.havePrevAttendants = true;
+            Intent intent = new Intent(this, EditAttendantList.class);
+            startActivity(intent);
         }
         else if (id == R.id.action_about)
         {
