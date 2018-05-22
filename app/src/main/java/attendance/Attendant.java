@@ -1,7 +1,7 @@
 package attendance;
 /*
  * Titan Robotics Attendance Logger
- * Copyright (c) 2016 Titan Robotics Club (http://www.titanrobotics.net)
+ * Copyright (c) 2018 Titan Robotics Club (http://www.titanrobotics.net)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
