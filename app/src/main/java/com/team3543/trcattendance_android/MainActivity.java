@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CheckBox;
@@ -254,11 +255,14 @@ public class MainActivity extends AppCompatActivity
     public void IGotMistakenlyHandedACalculatorOnAnAPTestAndIAmTakingTheBlameHelpMe()
     {
         Intent intent = new Intent(this, EditAttendantList.class);
-        startActivity(intent);
+        startActivityForResult(intent, 0);
+    }
 
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
         if (newFlag)
         {
-            newFlag = !newFlag;
+            Log.d("EnableEditing","Boolean flag triggered");
             enableEditText(meetingMM);
             enableEditText(meetingDD);
             enableEditText(meetingYYYY);
@@ -273,6 +277,8 @@ public class MainActivity extends AppCompatActivity
 
             enableEditText(endHH);
             enableEditText(endMM);
+
+            newFlag = false;
         }
     }
 

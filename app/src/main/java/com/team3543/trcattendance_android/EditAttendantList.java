@@ -52,6 +52,7 @@ public class EditAttendantList extends AppCompatActivity
             DataStore.writeInit();
             DataStore.havePrevAttendants = true;
             MainActivity.newFlag = true;
+            Log.d("EnableEditing","Boolean flag set to true");
             finish();
         }
         else
