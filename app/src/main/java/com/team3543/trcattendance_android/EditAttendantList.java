@@ -40,11 +40,11 @@ public class EditAttendantList extends AppCompatActivity
             Log.d("EditAttendantsList", "attendants[" + i + "]= " + attendantNames.get(i));
             tmp[i] = attendantNames.get(i);
         }
-        DataStore.tempAddStudents = tmp;
-        DataStore.attendanceLog.updateAttendants(DataStore.tempAddStudents);
-        DataStore.writeInit();
         if (!check)
         {
+            DataStore.tempAddStudents = tmp;
+            DataStore.attendanceLog.updateAttendants(DataStore.tempAddStudents);
+            DataStore.writeInit();
             finish();
         }
         else
