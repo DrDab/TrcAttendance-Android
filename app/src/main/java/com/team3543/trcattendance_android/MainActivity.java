@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity
     private EditText endMM;
 
     public static boolean newFlag = false;
+    public static String nameFlag = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -279,6 +280,15 @@ public class MainActivity extends AppCompatActivity
 
             enableEditText(endHH);
             enableEditText(endMM);
+
+            DataStore.loadCSV((String) new File(DataStore.readDirectory, nameFlag).toString());
+
+            // for(int i = 0; i < DataStore.attendanceLog.attendantsList.size(); i++)
+            // {
+            //     Attendant lol = DataStore.attendanceLog.attendantsList.get(i);
+            //     DataStore.allAttendants.add(lol);
+            //     DataStore.checkInList.add(lol);
+            // }
 
             newFlag = false;
         }

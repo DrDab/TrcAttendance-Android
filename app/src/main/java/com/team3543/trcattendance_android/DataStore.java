@@ -168,7 +168,7 @@ public class DataStore
         {
             e.printStackTrace();
         }
-        loadCSV(test.toString());
+        MainActivity.nameFlag = name;
     }
 
     public static void writeInit()
