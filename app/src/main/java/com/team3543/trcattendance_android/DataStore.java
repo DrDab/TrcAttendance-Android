@@ -74,13 +74,11 @@ public class DataStore
 
                 if (transaction[0].equals("CheckIn"))
                 {
-                    // TODO: Check in an attendant in DataStore
-                    // attendancePane.checkInAttendant(attendant, Long.parseLong(transaction[2]), false);
+                    checkInAttendant(attendant, Long.parseLong(transaction[2]), false);
                 }
                 else if (transaction[0].equals("CheckOut"))
                 {
-                    // TODO: Check out an attendant in DataStore
-                    // attendancePane.checkOutAttendant(attendant, Long.parseLong(transaction[2]), false);
+                    checkOutAttendant(attendant, Long.parseLong(transaction[2]), false);
                 }
             }
             sessionLog.close();
@@ -97,7 +95,7 @@ public class DataStore
      * @param attendant specifies the attendant.
      * @param timestamp specifies the transaction time.
      */
-    public void logTransaction(boolean checkOut, Attendant attendant, long timestamp)
+    public static void logTransaction(boolean checkOut, Attendant attendant, long timestamp)
     {
         File sessionFile = new File(SESSION_LOG_FILE_NAME);
         boolean exist = sessionFile.exists();
@@ -218,7 +216,7 @@ public class DataStore
      * @param timestamp specifies the check-in time.
      * @param logTransaction specifies true to log a transaction entry in the session log.
      */
-    public void checkInAttendant(Attendant attendant, long timestamp, boolean logTransaction)
+    public static void checkInAttendant(Attendant attendant, long timestamp, boolean logTransaction)
     {
         if (attendant != null)
         {
@@ -252,7 +250,7 @@ public class DataStore
      * @param timestamp specifies the check-out time.
      * @param logTransaction specifies true to log a transaction entry in the session log.
      */
-    public void checkOutAttendant(Attendant attendant, long timestamp, boolean logTransaction)
+    public static void checkOutAttendant(Attendant attendant, long timestamp, boolean logTransaction)
     {
         if (attendant != null)
         {
