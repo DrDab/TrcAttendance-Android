@@ -43,6 +43,8 @@ public class DataStore
 
     public static boolean havePrevAttendants = false;
 
+    public static File toOpen = null;
+
     /**
      * This method reads the session log file if there is one. It will recreate the meeting from the session log.
      *
@@ -182,7 +184,7 @@ public class DataStore
         allAttendants = new ArrayList<Attendant>();
         try
         {
-            attendanceLog = new AttendanceLog(new File(readDirectory, name), false);
+            attendanceLog = new AttendanceLog(new File(name), false);
         }
         catch (FileNotFoundException e)
         {
@@ -264,8 +266,17 @@ public class DataStore
                 logTransaction(true, attendant, timestamp);
             }
             attendant.checkOut(timestamp);
-            // checkOutList.removeItem(attendant);
-            // checkInList.addItem(attendant);
+            int removeIdx = findAttendant(checkOutList, attendant);
+            checkOutList.remove(removeIdx);
+            checkInList.add(attendant);
+            Collections.sort(checkInList, new Comparator<Attendant>()
+            {
+                @Override
+                public int compare(Attendant lhs, Attendant rhs)
+                {
+                    return lhs.compareTo(rhs);
+                }
+            });
             attendanceLog.setFileDirty();
         }
     }   //checkOutAttendant

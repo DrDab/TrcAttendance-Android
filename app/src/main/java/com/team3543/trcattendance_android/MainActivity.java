@@ -161,8 +161,10 @@ public class MainActivity extends AppCompatActivity
                 public void fileSelected(final File file)
                 {
                     // do something with the file
+                    DataStore.toOpen = file;
                 }
             }).showDialog();
+            DataStore.loadCSV(DataStore.toOpen.toString());
         }
         else if (id == R.id.action_editfile)
         {
