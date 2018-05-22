@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity
     private EditText endHH;
     private EditText endMM;
 
+    private EditText placeLocation;
+
     public static boolean newFlag = false;
     public static String nameFlag = "";
 
@@ -74,6 +76,8 @@ public class MainActivity extends AppCompatActivity
         endHH = (EditText) findViewById(R.id.endHH);
         endMM = (EditText) findViewById(R.id.endMM);
 
+        placeLocation = (EditText) findViewById(R.id.placeLocation);
+
         disableEditText(meetingMM);
         disableEditText(meetingDD);
         disableEditText(meetingYYYY);
@@ -88,6 +92,8 @@ public class MainActivity extends AppCompatActivity
 
         disableEditText(endHH);
         disableEditText(endMM);
+
+        disableEditText(placeLocation);
 
     }
 
@@ -179,6 +185,8 @@ public class MainActivity extends AppCompatActivity
 
                     enableEditText(endHH);
                     enableEditText(endMM);
+
+                    enableEditText(placeLocation);
                 }
             }).showDialog();
         }
@@ -280,6 +288,8 @@ public class MainActivity extends AppCompatActivity
 
             enableEditText(endHH);
             enableEditText(endMM);
+
+            enableEditText(placeLocation);
 
             DataStore.loadCSV((String) new File(DataStore.readDirectory, nameFlag).toString());
 
