@@ -41,6 +41,8 @@ public class DataStore
     public static ArrayList<Attendant> checkOutList = null;
     public static ArrayList<Attendant> allAttendants = null;
 
+    public static boolean havePrevAttendants = false;
+
     /**
      * This method reads the session log file if there is one. It will recreate the meeting from the session log.
      *
@@ -145,6 +147,7 @@ public class DataStore
 
     public static void newCSV(String name)
     {
+        havePrevAttendants = false;
         checkInList = new ArrayList<Attendant>();
         checkOutList = new ArrayList<Attendant>();
         allAttendants = new ArrayList<Attendant>();
@@ -173,6 +176,7 @@ public class DataStore
 
     public static void loadCSV(String name)
     {
+        havePrevAttendants = false;
         checkInList = new ArrayList<Attendant>();
         checkOutList = new ArrayList<Attendant>();
         allAttendants = new ArrayList<Attendant>();
@@ -190,6 +194,7 @@ public class DataStore
             allAttendants.add(lol);
             checkInList.add(lol);
         }
+        havePrevAttendants = true;
     }
 
     public static boolean verifyStoragePermissions(Activity activity)

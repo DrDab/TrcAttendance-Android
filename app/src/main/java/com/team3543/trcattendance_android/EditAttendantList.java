@@ -17,6 +17,11 @@ public class EditAttendantList extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_attendant_list);
+        if (DataStore.havePrevAttendants)
+        {
+            // populate the list with the names of the attendants, row by row
+
+        }
     }
 
     public void confirmData(View view)
@@ -45,6 +50,7 @@ public class EditAttendantList extends AppCompatActivity
             DataStore.tempAddStudents = tmp;
             DataStore.attendanceLog.updateAttendants(DataStore.tempAddStudents);
             DataStore.writeInit();
+            DataStore.havePrevAttendants = true;
             finish();
         }
         else

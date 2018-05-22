@@ -154,7 +154,15 @@ public class MainActivity extends AppCompatActivity
         }
         else if (id == R.id.action_openfile)
         {
-
+            // open a file chooser with the items inside the TrcAttendance folder
+            new FileChooser(this).setFileListener(new FileChooser.FileSelectedListener()
+            {
+                @Override
+                public void fileSelected(final File file)
+                {
+                    // do something with the file
+                }
+            }).showDialog();
         }
         else if (id == R.id.action_editfile)
         {
