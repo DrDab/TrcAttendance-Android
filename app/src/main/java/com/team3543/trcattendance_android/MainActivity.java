@@ -317,6 +317,52 @@ public class MainActivity extends AppCompatActivity
         }
         else if (id == R.id.action_closefile)
         {
+            try
+            {
+                DataStore.attendanceLog.closeLogFile();
+            }
+            catch (FileNotFoundException e)
+            {
+                e.printStackTrace();
+            }
+
+            meetingMM.setText("");
+            meetingDD.setText("");
+            meetingYYYY.setText("");
+
+            mechanicalBox.setChecked(false);
+            programmingBox.setChecked(false);
+            driveBox.setChecked(false);
+            otherBox.setChecked(false);
+
+            startHH.setText("");
+            startMM.setText("");
+
+            endHH.setText("");
+            endMM.setText("");
+
+            placeLocation.setText("");
+
+            disableEditText(meetingMM);
+            disableEditText(meetingDD);
+            disableEditText(meetingYYYY);
+
+            disableCheckBox(mechanicalBox);
+            disableCheckBox(programmingBox);
+            disableCheckBox(driveBox);
+            disableCheckBox(otherBox);
+
+            disableEditText(startHH);
+            disableEditText(startMM);
+
+            disableEditText(endHH);
+            disableEditText(endMM);
+
+            disableEditText(placeLocation);
+
+            disableButton(createMeetingButton);
+
+            disableAttendance();
 
         }
         return super.onOptionsItemSelected(item);
