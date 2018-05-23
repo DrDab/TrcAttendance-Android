@@ -48,6 +48,8 @@ public class DataStore
     public static boolean isOkToEdit = false;
     public static boolean isOkToClose = false;
 
+    public static String[] existingMeetingInfo;
+
     /**
      * This method reads the session log file if there is one. It will recreate the meeting from the session log.
      *
@@ -73,6 +75,7 @@ public class DataStore
 
             // onCreateMeeting(sessionInfo[0], sessionInfo[1], sessionInfo[2], sessionInfo[3], sessionInfo[4]);
             // meetingPane.setMeetingInfo(sessionInfo[0], sessionInfo[1], sessionInfo[2], sessionInfo[3], sessionInfo[4]);
+            existingMeetingInfo = sessionInfo;
             while (sessionLog.hasNextLine())
             {
                 String[] transaction = sessionLog.nextLine().trim().split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)", -1);

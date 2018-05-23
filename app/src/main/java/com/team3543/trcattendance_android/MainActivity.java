@@ -26,6 +26,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import attendance.Attendant;
+import attendance.Session;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -188,6 +189,7 @@ public class MainActivity extends AppCompatActivity
                         DataStore.loadCSV(DataStore.toOpen.toString());
                         if(DataStore.readExistingSessionLog(DataStore.SESSION_LOG_FILE_NAME))
                         {
+                            // TODO: Populate the time, date and other fields using the loaded SessionLog
                             disableButton(createMeetingButton);
 
                             disableEditText(meetingMM);
@@ -206,6 +208,65 @@ public class MainActivity extends AppCompatActivity
                             disableEditText(endMM);
 
                             disableEditText(placeLocation);
+
+
+                            String[] OwOWhatsThis = DataStore.existingMeetingInfo;
+                            // "Date", "Start Time", "End Time", "Place", "Meeting"
+                            String date = OwOWhatsThis[0];
+                            String timeStart = OwOWhatsThis[1];
+                            String timeEnd = OwOWhatsThis[2];
+                            String place = OwOWhatsThis[3];
+                            String meeting = OwOWhatsThis[4];
+                            String datep1 = date.substring(date.indexOf("/") + 1);
+                            String datep2 = datep1.substring(datep1.indexOf("/")+1);
+                            String MM = date.substring(0, date.indexOf("/"));
+                            String DD = datep1.substring(0, datep1.indexOf("/"));
+                            String YYYY = datep2;
+
+                            String sH = timeStart.substring(0, timeStart.indexOf(":"));
+                            String sM = timeStart.substring(timeStart.indexOf(":")+1);
+
+                            String eH = timeEnd.substring(0, timeEnd.indexOf(":"));
+                            String eM = timeEnd.substring(timeEnd.indexOf(":")+1);
+
+                            boolean mech = false;
+                            boolean prog = false;
+                            boolean driv = false;
+                            boolean othr = false;
+
+                            if(meeting.indexOf("Mechanical") != -1)
+                            {
+                                mech = true;
+                            }
+                            if (meeting.indexOf("Programming") != -1)
+                            {
+                                prog = true;
+                            }
+                            if (meeting.indexOf("Drive") != -1)
+                            {
+                                driv = true;
+                            }
+                            if (meeting.indexOf("Other") != -1)
+                            {
+                                othr = true;
+                            }
+
+                            meetingMM.setText(MM);
+                            meetingDD.setText(DD);
+                            meetingYYYY.setText(YYYY);
+
+                            startHH.setText(sH);
+                            startMM.setText(sM);
+
+                            endHH.setText(eH);
+                            endMM.setText(eM);
+
+                            placeLocation.setText(place);
+
+                            mechanicalBox.setChecked(mech);
+                            programmingBox.setChecked(prog);
+                            driveBox.setChecked(driv);
+                            otherBox.setChecked(othr);
 
                             enableAttendance();
                         }
