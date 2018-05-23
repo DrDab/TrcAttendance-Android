@@ -470,13 +470,43 @@ public class MainActivity extends AppCompatActivity
 
     public void checkIn(View view)
     {
-        // DataStore.checkInAttendant(s, DataStore.getEpochTime(), true);
-
+        //
+        ArrayAdapter<Attendant> checkInAdapter = new ArrayAdapter<Attendant>(this, android.R.layout.select_dialog_multichoice);
+        for(int i = 0; i < DataStore.checkInList.size(); i++)
+        {
+            checkInAdapter.add(DataStore.checkInList.get(i));
+        }
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Who are you?");
+        builder.setAdapter(checkInAdapter, new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int item)
+            {
+                DataStore.checkInAttendant(DataStore.checkInList.get(item), DataStore.getEpochTime(), true);
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     public void checkOut(View view)
     {
-
+        ArrayAdapter<Attendant> checkOutAdapter = new ArrayAdapter<Attendant>(this, android.R.layout.select_dialog_multichoice);
+        for(int i = 0; i < DataStore.checkOutList.size(); i++)
+        {
+            checkOutAdapter.add(DataStore.checkOutList.get(i));
+        }
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Who are you?");
+        builder.setAdapter(checkOutAdapter, new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int item)
+            {
+                DataStore.checkOutAttendant(DataStore.checkOutList.get(item), DataStore.getEpochTime(), true);
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
 }

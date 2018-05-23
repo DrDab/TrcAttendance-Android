@@ -267,7 +267,7 @@ public class DataStore
             }
             attendant.checkOut(timestamp);
 
-            checkOutList.remove(checkInList.indexOf(attendant));
+            checkOutList.remove(checkOutList.indexOf(attendant));
             checkInList.add(attendant);
             attendanceLog.setFileDirty();
         }
