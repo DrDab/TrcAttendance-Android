@@ -507,6 +507,27 @@ public class MainActivity extends AppCompatActivity
                 }
             }
 
+            // if checkOut list has entries that are also in checkIn list, remove those entries in checkIn list.
+            ArrayList<Attendant> tmpInFin = new ArrayList<Attendant>();
+
+            for(int i = 0; i < tmpOut.size(); i++)
+            {
+                int idx = tmpIn.indexOf(tmpOut.get(i));
+                if (idx != -1)
+                {
+                    tmpIn.set(idx, null);
+                }
+            }
+
+            for(int i = 0; i < tmpIn.size(); i++)
+            {
+                Attendant attdtmp =  tmpIn.get(i);
+                if(attdtmp != null)
+                {
+                    tmpInFin.add(attdtmp);
+                }
+            }
+
             Collections.sort(tmpAll, new Comparator<Attendant>()
             {
                 public int compare(Attendant a1, Attendant a2)
@@ -515,7 +536,7 @@ public class MainActivity extends AppCompatActivity
                 }
             });
 
-            DataStore.checkInList = tmpIn;
+            DataStore.checkInList = tmpInFin;
             DataStore.checkOutList = tmpOut;
             DataStore.allAttendants = tmpAll;
 
