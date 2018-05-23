@@ -326,6 +326,8 @@ public class MainActivity extends AppCompatActivity
                 e.printStackTrace();
             }
 
+            new File(DataStore.SESSION_LOG_FILE_NAME).delete();
+
             meetingMM.setText("");
             meetingDD.setText("");
             meetingYYYY.setText("");
