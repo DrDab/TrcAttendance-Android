@@ -210,7 +210,7 @@ public class MainActivity extends AppCompatActivity
         {
             DataStore.havePrevAttendants = true;
             Intent intent = new Intent(this, EditAttendantList.class);
-            startActivity(intent);
+            startActivityForResult(intent, 0);
         }
         else if (id == R.id.action_about)
         {
@@ -310,6 +310,7 @@ public class MainActivity extends AppCompatActivity
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
+        Log.d("EnableEditing","Frickballs");
         if (newFlag)
         {
             Log.d("EnableEditing","Boolean flag triggered");
@@ -332,14 +333,19 @@ public class MainActivity extends AppCompatActivity
 
             enableButton(createMeetingButton);
 
-            DataStore.loadCSV((String) new File(DataStore.readDirectory, nameFlag).toString());
+            // DataStore.loadCSV((String) new File(DataStore.readDirectory, nameFlag).toString());
 
-            // for(int i = 0; i < DataStore.attendanceLog.attendantsList.size(); i++)
-            // {
-            //     Attendant lol = DataStore.attendanceLog.attendantsList.get(i);
-            //     DataStore.allAttendants.add(lol);
-            //     DataStore.checkInList.add(lol);
-            // }
+            for(int i = 0; i < DataStore.attendanceLog.attendantsList.size(); i++)
+            {
+                 DataStore.allAttendants = new ArrayList<Attendant>();
+                 Attendant lol = DataStore.attendanceLog.attendantsList.get(i);
+                 DataStore.allAttendants.add(lol);
+                 if(DataStore.checkInList.indexOf(lol) == -1)
+                 {
+                     Log.d("Update Attendants","ESKETIT");
+                     DataStore.checkInList.add(lol);
+                 }
+            }
 
             newFlag = false;
         }
@@ -475,6 +481,7 @@ public class MainActivity extends AppCompatActivity
         for(int i = 0; i < DataStore.checkInList.size(); i++)
         {
             checkInAdapter.add(DataStore.checkInList.get(i));
+            Log.d("checkIn",DataStore.checkInList.get(i).toString());
         }
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Who are you?");

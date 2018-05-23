@@ -171,17 +171,17 @@ public class DataStore
         MainActivity.nameFlag = name;
     }
 
-    public static void writeInit()
-    {
-        try
-        {
-            attendanceLog.closeLogFile();
-        }
-        catch (FileNotFoundException e)
-        {
-            e.printStackTrace();
-        }
-    }
+    //public static void writeInit()
+    //{
+    //    try
+    //    {
+    //        attendanceLog.closeLogFile();
+    //    }
+    //    catch (FileNotFoundException e)
+    //    {
+    //        e.printStackTrace();
+    //    }
+    //}
 
     public static void loadCSV(String name)
     {
@@ -206,6 +206,11 @@ public class DataStore
         havePrevAttendants = true;
         isOkToClose = true;
         isOkToEdit = true;
+    }
+
+    public static void addMoreAttendants()
+    {
+
     }
 
     public static boolean verifyStoragePermissions(Activity activity)
