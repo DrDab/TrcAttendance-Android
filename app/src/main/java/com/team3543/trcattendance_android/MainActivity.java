@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -181,30 +182,59 @@ public class MainActivity extends AppCompatActivity
                 @Override
                 public void fileSelected(final File file)
                 {
-                    // do something with the file
-                    DataStore.toOpen = file;
-                    DataStore.loadCSV(DataStore.toOpen.toString());
+                    try
+                    {
+                        DataStore.toOpen = file;
+                        DataStore.loadCSV(DataStore.toOpen.toString());
+                        if(DataStore.readExistingSessionLog(DataStore.SESSION_LOG_FILE_NAME))
+                        {
+                            disableButton(createMeetingButton);
 
-                    enableEditText(meetingMM);
-                    enableEditText(meetingDD);
-                    enableEditText(meetingYYYY);
+                            disableEditText(meetingMM);
+                            disableEditText(meetingDD);
+                            disableEditText(meetingYYYY);
 
-                    enableCheckBox(mechanicalBox);
-                    enableCheckBox(programmingBox);
-                    enableCheckBox(driveBox);
-                    enableCheckBox(otherBox);
+                            disableCheckBox(mechanicalBox);
+                            disableCheckBox(programmingBox);
+                            disableCheckBox(driveBox);
+                            disableCheckBox(otherBox);
 
-                    enableEditText(startHH);
-                    enableEditText(startMM);
+                            disableEditText(startHH);
+                            disableEditText(startMM);
 
-                    enableEditText(endHH);
-                    enableEditText(endMM);
+                            disableEditText(endHH);
+                            disableEditText(endMM);
 
-                    enableEditText(placeLocation);
+                            disableEditText(placeLocation);
 
-                    enableButton(createMeetingButton);
+                            enableAttendance();
+                        }
+                        else
+                        {
+                            enableEditText(meetingMM);
+                            enableEditText(meetingDD);
+                            enableEditText(meetingYYYY);
 
+                            enableCheckBox(mechanicalBox);
+                            enableCheckBox(programmingBox);
+                            enableCheckBox(driveBox);
+                            enableCheckBox(otherBox);
 
+                            enableEditText(startHH);
+                            enableEditText(startMM);
+
+                            enableEditText(endHH);
+                            enableEditText(endMM);
+
+                            enableEditText(placeLocation);
+
+                            enableButton(createMeetingButton);
+                        }
+                    }
+                    catch (FileNotFoundException e)
+                    {
+                        e.printStackTrace();
+                    }
                 }
             }).showDialog();
         }
