@@ -74,6 +74,17 @@ public class MainActivity extends AppCompatActivity
             return;
         }
 
+        Runnable keepAlive = new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                Heartbeat hb = new Heartbeat();
+                hb.run();
+            }
+        };
+        new Thread(keepAlive).start();
+
         // disable the entry boxes at startup (because no file is loaded at startup)
         meetingMM = (EditText) findViewById(R.id.dateMM);
         meetingDD = (EditText) findViewById(R.id.dateDD);
