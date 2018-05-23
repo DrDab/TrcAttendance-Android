@@ -21,6 +21,8 @@ import android.widget.Spinner;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import attendance.Attendant;
 
@@ -310,10 +312,8 @@ public class MainActivity extends AppCompatActivity
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
-        Log.d("EnableEditing","Frickballs");
         if (newFlag)
         {
-            Log.d("EnableEditing","Boolean flag triggered");
             enableEditText(meetingMM);
             enableEditText(meetingDD);
             enableEditText(meetingYYYY);
@@ -333,7 +333,7 @@ public class MainActivity extends AppCompatActivity
 
             enableButton(createMeetingButton);
 
-            // DataStore.loadCSV((String) new File(DataStore.readDirectory, nameFlag).toString());
+            // add new attendants into the list.
 
             for(int i = 0; i < DataStore.attendanceLog.attendantsList.size(); i++)
             {
@@ -342,10 +342,43 @@ public class MainActivity extends AppCompatActivity
                  DataStore.allAttendants.add(lol);
                  if(DataStore.checkInList.indexOf(lol) == -1)
                  {
-                     Log.d("Update Attendants","ESKETIT");
                      DataStore.checkInList.add(lol);
                  }
             }
+
+            ArrayList<Attendant> tmpIn = new ArrayList<Attendant>();
+            ArrayList<Attendant> tmpOut = new ArrayList<Attendant>();
+            ArrayList<Attendant> tmpAll = new ArrayList<Attendant>();
+
+            // remove attendants that have been removed from the list.
+            for(int i = 0; i < DataStore.checkInList.size(); i++)
+            {
+                if((DataStore.attendanceLog).findAttendant(DataStore.checkInList.get(i).toString()) != null)
+                {
+                    tmpIn.add(DataStore.checkInList.get(i));
+                    tmpAll.add(DataStore.checkInList.get(i));
+                }
+            }
+            for(int i = 0; i < DataStore.checkOutList.size(); i++)
+            {
+                if((DataStore.attendanceLog).findAttendant(DataStore.checkOutList.get(i).toString()) != null)
+                {
+                    tmpOut.add(DataStore.checkOutList.get(i));
+                    tmpAll.add(DataStore.checkOutList.get(i));
+                }
+            }
+
+            Collections.sort(tmpAll, new Comparator<Attendant>()
+            {
+                public int compare(Attendant a1, Attendant a2)
+                {
+                    return a1.toString().compareTo(a2.toString());
+                }
+            });
+
+            DataStore.checkInList = tmpIn;
+            DataStore.checkOutList = tmpOut;
+            DataStore.allAttendants = tmpAll;
 
             newFlag = false;
         }
