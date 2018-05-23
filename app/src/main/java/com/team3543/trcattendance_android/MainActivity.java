@@ -13,9 +13,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -41,6 +43,9 @@ public class MainActivity extends AppCompatActivity
     private EditText placeLocation;
 
     private Button createMeetingButton;
+
+    private Button checkInButton;
+    private Button checkOutButton;
 
     public static boolean newFlag = false;
     public static String nameFlag = "";
@@ -85,6 +90,9 @@ public class MainActivity extends AppCompatActivity
 
         createMeetingButton = (Button) findViewById((R.id.button_createMeeting));
 
+        checkInButton = (Button) findViewById(R.id.checkInButton);
+        checkOutButton = (Button) findViewById(R.id.checkOutButton);
+
         disableEditText(meetingMM);
         disableEditText(meetingDD);
         disableEditText(meetingYYYY);
@@ -104,6 +112,7 @@ public class MainActivity extends AppCompatActivity
 
         disableButton(createMeetingButton);
 
+        disableAttendance();
     }
 
     @Override
@@ -124,14 +133,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Options List:
-        // - New File
-        // - Open File
-        // - Edit File
-        // - Close File
-        // - About
-        // - Exit
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
         int id = item.getItemId();
         if (id == R.id.action_newfile)
         {
@@ -198,6 +201,8 @@ public class MainActivity extends AppCompatActivity
                     enableEditText(placeLocation);
 
                     enableButton(createMeetingButton);
+
+
                 }
             }).showDialog();
         }
@@ -214,7 +219,8 @@ public class MainActivity extends AppCompatActivity
         }
         else if (id == R.id.action_exit)
         {
-
+            // prompt the user is they want to save if a session is currently open.
+            // then exit.
         }
         else if (id == R.id.action_closefile)
         {
@@ -282,6 +288,18 @@ public class MainActivity extends AppCompatActivity
     public void disableButton(Button button)
     {
         button.setEnabled(false);
+    }
+
+    public void enableAttendance()
+    {
+        enableButton(checkInButton);
+        enableButton(checkOutButton);
+    }
+
+    public void disableAttendance()
+    {
+        disableButton(checkInButton);
+        disableButton(checkOutButton);
     }
 
     public void IGotMistakenlyHandedACalculatorOnAnAPTestAndIAmTakingTheBlameHelpMe()
@@ -425,9 +443,40 @@ public class MainActivity extends AppCompatActivity
 
         if (b)
         {
+            // TODO: Unlock the check-in/check-out buttons upon verification
             disableButton(createMeetingButton);
+
+            disableEditText(meetingMM);
+            disableEditText(meetingDD);
+            disableEditText(meetingYYYY);
+
+            disableCheckBox(mechanicalBox);
+            disableCheckBox(programmingBox);
+            disableCheckBox(driveBox);
+            disableCheckBox(otherBox);
+
+            disableEditText(startHH);
+            disableEditText(startMM);
+
+            disableEditText(endHH);
+            disableEditText(endMM);
+
+            disableEditText(placeLocation);
+
+            enableAttendance();
             DataStore.attendanceLog.createSession(info);
         }
+    }
+
+    public void checkIn(View view)
+    {
+        // DataStore.checkInAttendant(s, DataStore.getEpochTime(), true);
+
+    }
+
+    public void checkOut(View view)
+    {
+
     }
 
 }
