@@ -498,6 +498,8 @@ public class MainActivity extends AppCompatActivity
     {
         if (newFlag)
         {
+            setDefaultDateTimePlace();
+
             enableEditText(meetingMM);
             enableEditText(meetingDD);
             enableEditText(meetingYYYY);
@@ -516,8 +518,6 @@ public class MainActivity extends AppCompatActivity
             enableEditText(placeLocation);
 
             enableButton(createMeetingButton);
-
-            setDefaultDateTimePlace();
 
             // add new attendants into the list.
 
@@ -799,9 +799,9 @@ public class MainActivity extends AppCompatActivity
         }
         hrText2 += endhour;
 
-        meetingMM.setText(month);
-        meetingDD.setText(day);
-        meetingYYYY.setText(year);
+        meetingMM.setText(month + "");
+        meetingDD.setText(day + "");
+        meetingYYYY.setText(year + "");
         startHH.setText(hrText);
         startMM.setText(minText);
         endHH.setText(hrText2);
