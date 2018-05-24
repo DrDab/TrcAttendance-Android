@@ -835,7 +835,7 @@ public class MainActivity extends AppCompatActivity
         int month = now.get(Calendar.MONTH) + 1; // Note: zero based!
         int day = now.get(Calendar.DAY_OF_MONTH);
         int hour = now.get(Calendar.HOUR_OF_DAY);
-        int endhour = (hour + 2 > 23) ? (hour + 2) - 24 : hour;
+        int endhour = (hour + 2 > 23) ? (hour + 2) - 24 : (hour + 2);
         int minute = now.get(Calendar.MINUTE);
         if (minute < 15)
         {
