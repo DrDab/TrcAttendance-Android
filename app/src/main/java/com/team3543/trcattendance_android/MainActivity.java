@@ -355,10 +355,82 @@ public class MainActivity extends AppCompatActivity
         {
             // prompt the user is they want to save if a session is currently open.
             // then exit.
+            if(DataStore.allAttendants != null)
+            {
+                new AlertDialog.Builder(this)
+                        .setTitle("Save")
+                        .setMessage("Would you like to save before exiting?")
+                        .setPositiveButton("YES", new DialogInterface.OnClickListener()
+                        {
+                            public void onClick(DialogInterface dialog, int whichButton)
+                            {
+                                try
+                                {
+                                    DataStore.attendanceLog.closeLogFile();
+                                }
+                                catch (FileNotFoundException e)
+                                {
+                                    e.printStackTrace();
+                                }
 
+                                new File(DataStore.SESSION_LOG_FILE_NAME).delete();
 
-            // getActivity().finish();
-            // System.exit(0);
+                                meetingMM.setText("");
+                                meetingDD.setText("");
+                                meetingYYYY.setText("");
+
+                                mechanicalBox.setChecked(false);
+                                programmingBox.setChecked(false);
+                                driveBox.setChecked(false);
+                                otherBox.setChecked(false);
+
+                                startHH.setText("");
+                                startMM.setText("");
+
+                                endHH.setText("");
+                                endMM.setText("");
+
+                                placeLocation.setText("");
+
+                                disableEditText(meetingMM);
+                                disableEditText(meetingDD);
+                                disableEditText(meetingYYYY);
+
+                                disableCheckBox(mechanicalBox);
+                                disableCheckBox(programmingBox);
+                                disableCheckBox(driveBox);
+                                disableCheckBox(otherBox);
+
+                                disableEditText(startHH);
+                                disableEditText(startMM);
+
+                                disableEditText(endHH);
+                                disableEditText(endMM);
+
+                                disableEditText(placeLocation);
+
+                                disableButton(createMeetingButton);
+
+                                disableAttendance();
+
+                                finish();
+                                System.exit(0);
+                            }
+                        })
+                        .setNegativeButton("NO", new DialogInterface.OnClickListener()
+                        {
+                            public void onClick(DialogInterface dialog, int whichButton)
+                            {
+                                finish();
+                                System.exit(0);
+                            }
+                        }).show();
+            }
+            else
+            {
+                finish();
+                System.exit(0);
+            }
         }
         else if (id == R.id.action_closefile)
         {
