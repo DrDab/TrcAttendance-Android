@@ -22,7 +22,9 @@ import android.widget.Spinner;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -327,6 +329,8 @@ public class MainActivity extends AppCompatActivity
                             enableEditText(placeLocation);
 
                             enableButton(createMeetingButton);
+
+                            setDefaultDateTimePlace();
                         }
                     }
                     catch (FileNotFoundException e)
@@ -351,6 +355,10 @@ public class MainActivity extends AppCompatActivity
         {
             // prompt the user is they want to save if a session is currently open.
             // then exit.
+
+
+            // getActivity().finish();
+            // System.exit(0);
         }
         else if (id == R.id.action_closefile)
         {
@@ -508,6 +516,8 @@ public class MainActivity extends AppCompatActivity
             enableEditText(placeLocation);
 
             enableButton(createMeetingButton);
+
+            setDefaultDateTimePlace();
 
             // add new attendants into the list.
 
@@ -745,5 +755,57 @@ public class MainActivity extends AppCompatActivity
         AlertDialog alert = builder.create();
         alert.show();
     }
+
+    public void setDefaultDateTimePlace()
+    {
+        Calendar now = Calendar.getInstance();
+        int year = now.get(Calendar.YEAR);
+        int month = now.get(Calendar.MONTH) + 1; // Note: zero based!
+        int day = now.get(Calendar.DAY_OF_MONTH);
+        int hour = now.get(Calendar.HOUR_OF_DAY);
+        int endhour = hour + 2;
+        int minute = now.get(Calendar.MINUTE);
+        if (minute < 15)
+        {
+            minute = 0;
+        }
+        else if (minute < 45)
+        {
+            minute = 30;
+        }
+        else
+        {
+            minute = 0;
+            hour++;
+        }
+        String minText = "";
+        String hrText = "";
+        String hrText2 = "";
+        if(minute < 10)
+        {
+            minText += "0";
+        }
+        minText += minute;
+
+        if (hour < 10)
+        {
+            hrText += "0";
+        }
+        hrText += hour;
+
+        if (endhour < 10)
+        {
+            hrText2 += "0";
+        }
+        hrText2 += endhour;
+
+        meetingMM.setText(month);
+        meetingDD.setText(day);
+        meetingYYYY.setText(year);
+        startHH.setText(hrText);
+        startMM.setText(minText);
+        endHH.setText(hrText2);
+        endMM.setText(minText);
+    }   //setDefaultDateTimePlace
 
 }
