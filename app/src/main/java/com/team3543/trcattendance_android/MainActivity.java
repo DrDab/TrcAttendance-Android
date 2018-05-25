@@ -2,6 +2,7 @@ package com.team3543.trcattendance_android;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -87,6 +88,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
 
         // check if we have storage permissions first
         if (DataStore.verifyStoragePermissions(this))

@@ -36,6 +36,8 @@ import java.io.IOException;
 public class About extends AppCompatActivity
 {
 
+    private int activate = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -56,15 +58,16 @@ public class About extends AppCompatActivity
 
     public void mystery(View view)
     {
-        MediaPlayer player = MediaPlayer.create(this, R.raw.careless_whisper);
-        try
+        activate++;
+        if(activate >= 10)
         {
-            // player.prepare();
-            player.start();
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
+            MediaPlayer player = MediaPlayer.create(this, R.raw.dimmadubstep);
+            try {
+                // player.prepare();
+                player.start();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
     }
