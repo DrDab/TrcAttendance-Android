@@ -1,9 +1,14 @@
 package com.team3543.trcattendance_android;
 
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+
+import java.io.IOException;
 
 /**
  *
@@ -44,6 +49,29 @@ public class About extends AppCompatActivity
         versionView.setText(DataStore.PROGRAM_VERSION);
         TextView copyrightView = (TextView) findViewById (R.id.copyrightView);
         copyrightView.setText(DataStore.COPYRIGHT_MSG);
+        Button theButton = (Button) findViewById(R.id.easterEgg);
+        theButton.setVisibility(View.VISIBLE);
+        theButton.setBackgroundColor(Color.TRANSPARENT);
+    }
+
+    public void mystery(View view)
+    {
+        int resID = getResources().getIdentifier("careless_whisper", "raw", getPackageName());
+        MediaPlayer player = MediaPlayer.create(this, resID);
+        try
+        {
+            player.prepare();
+            player.start();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
     }
 
 }
