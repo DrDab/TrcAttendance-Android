@@ -482,6 +482,9 @@ public class MainActivity extends AppCompatActivity
 
             disableAttendance();
 
+            DataStore.isOkToEdit = false;
+            DataStore.isOkToClose = false;
+
         }
         return super.onOptionsItemSelected(item);
     }
