@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         // check if we have storage permissions first
         if (DataStore.verifyStoragePermissions(this))
