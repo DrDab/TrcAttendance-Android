@@ -668,7 +668,7 @@ public class MainActivity extends AppCompatActivity
     {
         String[] info = null;
         // parse the start and end times, date from the forms.
-        // MM/DD/YYYY, HH:MM, HH:MM, xxxxxxxxxxxxxxxxxxxx, (Mechanical/Programming/Drive/Other)
+        // Date, Start, End, Place, Meeting Type
         boolean b = true;
         int month = -1;
         int day = -1;
