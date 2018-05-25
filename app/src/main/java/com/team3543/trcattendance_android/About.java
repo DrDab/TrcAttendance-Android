@@ -8,8 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.io.IOException;
-
 /**
  *
  *  Copyright (c) 2018 Titan Robotics Club, Victor Du

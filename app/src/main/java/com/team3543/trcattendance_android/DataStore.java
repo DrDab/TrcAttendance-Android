@@ -12,8 +12,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Scanner;
 
 import attendance.Attendant;
@@ -196,18 +194,6 @@ public class DataStore
         }
         MainActivity.nameFlag = name;
     }
-
-    //public static void writeInit()
-    //{
-    //    try
-    //    {
-    //        attendanceLog.closeLogFile();
-    //    }
-    //    catch (FileNotFoundException e)
-    //    {
-    //        e.printStackTrace();
-    //    }
-    //}
 
     public static void loadCSV(String name)
     {

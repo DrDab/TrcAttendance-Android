@@ -19,18 +19,15 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Spinner;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 
 import attendance.Attendant;
-import attendance.Session;
 
 /**
  *
