@@ -570,26 +570,28 @@ public class MainActivity extends AppCompatActivity
     {
         if (newFlag)
         {
-            setDefaultDateTimePlace();
+            if(DataStore.attendanceLog.getCurrentSession() != null)
+            {
+                setDefaultDateTimePlace();
 
-            enableEditText(meetingMM);
-            enableEditText(meetingDD);
-            enableEditText(meetingYYYY);
+                enableEditText(meetingMM);
+                enableEditText(meetingDD);
+                enableEditText(meetingYYYY);
 
-            enableCheckBox(mechanicalBox);
-            enableCheckBox(programmingBox);
-            enableCheckBox(driveBox);
-            enableCheckBox(otherBox);
+                enableCheckBox(mechanicalBox);
+                enableCheckBox(programmingBox);
+                enableCheckBox(driveBox);
+                enableCheckBox(otherBox);
 
-            enableEditText(startHH);
-            enableEditText(startMM);
+                enableEditText(startHH);
+                enableEditText(startMM);
 
-            enableEditText(endHH);
-            enableEditText(endMM);
+                enableEditText(endHH);
+                enableEditText(endMM);
 
-            enableEditText(placeLocation);
-
-            enableButton(createMeetingButton);
+                enableEditText(placeLocation);
+                enableButton(createMeetingButton);
+            }
 
             // add new attendants into the list.
 
