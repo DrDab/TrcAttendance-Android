@@ -56,16 +56,11 @@ public class About extends AppCompatActivity
 
     public void mystery(View view)
     {
-        int resID = getResources().getIdentifier("careless_whisper", "raw", getPackageName());
-        MediaPlayer player = MediaPlayer.create(this, resID);
+        MediaPlayer player = MediaPlayer.create(this, R.raw.careless_whisper);
         try
         {
-            player.prepare();
+            // player.prepare();
             player.start();
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
         }
         catch (Exception e)
         {
