@@ -69,6 +69,8 @@ public class DataStore
     public static boolean isOkToEdit = false;
     public static boolean isOkToClose = false;
 
+    public static boolean editPopulated = false;
+
     public static String[] existingMeetingInfo;
 
     /**
@@ -113,6 +115,7 @@ public class DataStore
                 }
             }
             sessionLog.close();
+            DataStore.editPopulated = true;
             success = true;
         }
 
@@ -193,6 +196,7 @@ public class DataStore
             e.printStackTrace();
         }
         MainActivity.nameFlag = name;
+        DataStore.editPopulated = false;
     }
 
     public static void loadCSV(String name)
@@ -218,6 +222,7 @@ public class DataStore
         havePrevAttendants = true;
         isOkToClose = true;
         isOkToEdit = true;
+        DataStore.editPopulated = false;
     }
 
     public static void addMoreAttendants()

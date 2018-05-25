@@ -569,7 +569,8 @@ public class MainActivity extends AppCompatActivity
     {
         if (newFlag)
         {
-            if(DataStore.checkOutList == null)
+            boolean tmpB = false;
+            if(!DataStore.editPopulated)
             {
                 setDefaultDateTimePlace();
 
@@ -593,7 +594,6 @@ public class MainActivity extends AppCompatActivity
             }
 
             // add new attendants into the list.
-
             for(int i = 0; i < DataStore.attendanceLog.attendantsList.size(); i++)
             {
                  DataStore.allAttendants = new ArrayList<Attendant>();
@@ -655,6 +655,8 @@ public class MainActivity extends AppCompatActivity
                     return a1.toString().compareTo(a2.toString());
                 }
             });
+
+            DataStore.editPopulated = true;
 
             DataStore.checkInList = tmpInFin;
             DataStore.checkOutList = tmpOut;
