@@ -569,7 +569,7 @@ public class MainActivity extends AppCompatActivity
     {
         if (newFlag)
         {
-            if(DataStore.attendanceLog.getCurrentSession() != null)
+            if(DataStore.checkOutList == null)
             {
                 setDefaultDateTimePlace();
 
