@@ -3,8 +3,11 @@ package com.team3543.trcattendance_android;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import java.util.ArrayList;
@@ -36,16 +39,20 @@ import java.util.Scanner;
 public class EditAttendantList extends AppCompatActivity
 {
     private static String toLoad = "";
+    private Button confirm;
+    private TextWatcher tw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_attendant_list);
+        confirm = (Button) findViewById(R.id.confirmAttendants);
+        confirm.setEnabled(false);
+        EditText editText = (EditText) findViewById(R.id.attendantEntries);
         if (DataStore.havePrevAttendants)
         {
-            // populate the list with the names of the attendants, row by row
-            EditText editText = (EditText) findViewById(R.id.attendantEntries);
+            // populate the list with the names of the attendants, row by row.
             toLoad = "";
             for(int i = 0; i < DataStore.allAttendants.size(); i++)
             {
@@ -53,6 +60,27 @@ public class EditAttendantList extends AppCompatActivity
             }
             editText.setText(toLoad);
         }
+        tw = new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2)
+            {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
+            {
+                confirm.setEnabled(true);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable)
+            {
+
+            }
+        };
+        editText.addTextChangedListener(tw);
     }
 
     public void confirmData(View view)
