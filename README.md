@@ -1,7 +1,16 @@
 # TrcAttendance-Android
-An Android port of the TRC Attendance app
-# Usage
-This app is intended for easy attendance tracking of FIRST Tech Challenge/Robotics Challenge meetings. Using this app, mentors can get accurate reports on the time contributed by each attendant, as well as the types of meetings they attended.
+An Android port of the TRC Attendance app. Desktop version available here: https://github.com/trc492/TrcAttendance
+
+### Attendance Logger - Tool to log students' participation in meetings.
+
+In our team, each student is required to participate a minimum number of hours of meetings
+during the build season in order to participate in competitions. This app is intended for mobile
+attendance tracking for an Android tablet or phone while away from the meeting place. Each student, 
+when walking in, will select their names on the check-in list and click the check-in button. When 
+leaving, they will select their names in the check-out list and click the check-out button. This 
+allows us to keep track of the minutes they have attended meetings. The program keeps track of this
+info in an Excel spreadsheet which can sum up the total hours of each student if needed.
+
 # License
 MIT License
 
