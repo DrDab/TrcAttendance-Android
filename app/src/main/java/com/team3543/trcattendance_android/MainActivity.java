@@ -665,6 +665,11 @@ public class MainActivity extends AppCompatActivity
             DataStore.checkOutList = tmpOut;
             DataStore.allAttendants = tmpAll;
 
+            if(DataStore.attendanceLog.getCurrentSession() != null)
+            {
+                disableButton(createMeetingButton);
+            }
+
             newFlag = false;
         }
     }
