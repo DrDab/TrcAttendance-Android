@@ -225,11 +225,12 @@ public class DataStore
         DataStore.editPopulated = false;
     }
 
-    public static void addMoreAttendants()
-    {
-
-    }
-
+    /**
+     * This method checks if the current session has system permissions for accessing local storage.
+     *
+     * @param activity
+     * @return whether we are able to read/write to local storage.
+     */
     public static boolean verifyStoragePermissions(Activity activity)
     {
         // Check if we have write permission
@@ -295,10 +296,23 @@ public class DataStore
         }
     }   //checkOutAttendant
 
+    /**
+     * This method creates a String array that contains the date, start time, end time, place and meeting location
+     * of the current meeting session.
+     *
+     * @param month
+     * @param day
+     * @param year
+     * @param startHr
+     * @param startMin
+     * @param endHr
+     * @param endMin
+     * @param place
+     * @param meeting
+     * @return a 5-element String array that is ordered in the order: Date (MM/DD/YYYY), Start Time (HH:MM), End Time (HH:MM), Place, Meeting.
+     */
     public static String[] getSessionInfo(int month, int day, int year, int startHr, int startMin, int endHr, int endMin, String place, String meeting)
     {
-        // "Date", "Start Time", "End Time", "Place", "Meeting"
-        // MM/DD/YYYY, HH:MM, HH:MM, xxxxxxxxxxxxxxxxxxxx, (Mechanical/Programming/Drive/Other)
         String[] tmp = new String[5];
         String monthString = "";
         if (month < 10)

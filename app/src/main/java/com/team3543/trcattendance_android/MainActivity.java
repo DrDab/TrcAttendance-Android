@@ -200,7 +200,7 @@ public class MainActivity extends AppCompatActivity
                                 else
                                 {
                                     DataStore.newCSV(recipient[0]);
-                                    IGotMistakenlyHandedACalculatorOnAnAPTestAndIAmTakingTheBlameHelpMe();
+                                    loadAttendantListEditorIntent();
                                 }
                             }
                         })
@@ -511,7 +511,7 @@ public class MainActivity extends AppCompatActivity
                     {
                         new File(DataStore.readDirectory, filename0).delete();
                         DataStore.newCSV(filename0);
-                        IGotMistakenlyHandedACalculatorOnAnAPTestAndIAmTakingTheBlameHelpMe();
+                        loadAttendantListEditorIntent();
                     }
                 })
                 .setNegativeButton("NO", new DialogInterface.OnClickListener()
@@ -562,7 +562,7 @@ public class MainActivity extends AppCompatActivity
         disableButton(checkOutButton);
     }
 
-    public void IGotMistakenlyHandedACalculatorOnAnAPTestAndIAmTakingTheBlameHelpMe()
+    public void loadAttendantListEditorIntent()
     {
         Intent intent = new Intent(this, EditAttendantList.class);
         startActivityForResult(intent, 0);
