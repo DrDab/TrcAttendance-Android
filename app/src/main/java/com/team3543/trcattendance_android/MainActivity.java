@@ -572,7 +572,6 @@ public class MainActivity extends AppCompatActivity
     {
         if (newFlag)
         {
-            boolean tmpB = false;
             if(!DataStore.editPopulated)
             {
                 setDefaultDateTimePlace();
