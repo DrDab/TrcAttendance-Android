@@ -41,6 +41,7 @@ public class EditAttendantList extends AppCompatActivity
     private static String toLoad = "";
     private Button confirm;
     private TextWatcher tw;
+    private EditText editText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -49,7 +50,7 @@ public class EditAttendantList extends AppCompatActivity
         setContentView(R.layout.activity_edit_attendant_list);
         confirm = (Button) findViewById(R.id.confirmAttendants);
         confirm.setEnabled(false);
-        EditText editText = (EditText) findViewById(R.id.attendantEntries);
+        editText = (EditText) findViewById(R.id.attendantEntries);
         if (DataStore.havePrevAttendants)
         {
             // populate the list with the names of the attendants, row by row.
@@ -71,7 +72,14 @@ public class EditAttendantList extends AppCompatActivity
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
             {
-                confirm.setEnabled(true);
+                if (editText.getText().toString().matches(""))
+                {
+                    confirm.setEnabled(false);
+                }
+                else
+                {
+                    confirm.setEnabled(true);
+                }
             }
 
             @Override
@@ -86,26 +94,26 @@ public class EditAttendantList extends AppCompatActivity
     public void confirmData(View view)
     {
         boolean check = false;
-        EditText editText = (EditText) findViewById(R.id.attendantEntries);
+        // EditText editText = (EditText) findViewById(R.id.attendantEntries);
         String attendantEntries = editText.getText().toString();
         if (attendantEntries.matches(""))
         {
             check = !check;
         }
-        ArrayList<String> attendantNames = new ArrayList<String>();
-        Scanner sc = new Scanner(attendantEntries);
-        while(sc.hasNextLine())
+        if(!check)
         {
-            attendantNames.add(sc.nextLine());
-        }
-        String[] tmp = new String[attendantNames.size()];
-        for(int i = 0; i < tmp.length; i++)
-        {
-            Log.d("EditAttendantsList", "attendants[" + i + "]= " + attendantNames.get(i));
-            tmp[i] = attendantNames.get(i);
-        }
-        if (!check)
-        {
+            ArrayList<String> attendantNames = new ArrayList<String>();
+            Scanner sc = new Scanner(attendantEntries);
+            while (sc.hasNextLine())
+            {
+                attendantNames.add(sc.nextLine());
+            }
+            String[] tmp = new String[attendantNames.size()];
+            for (int i = 0; i < tmp.length; i++)
+            {
+                Log.d("EditAttendantsList", "attendants[" + i + "]= " + attendantNames.get(i));
+                tmp[i] = attendantNames.get(i);
+            }
             DataStore.tempAddStudents = tmp;
             DataStore.attendanceLog.updateAttendants(DataStore.tempAddStudents);
             // DataStore.writeInit();
