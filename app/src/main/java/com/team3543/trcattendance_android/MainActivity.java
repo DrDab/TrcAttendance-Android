@@ -332,9 +332,25 @@ public class MainActivity extends AppCompatActivity
                             setDefaultDateTimePlace();
                         }
                     }
-                    catch (FileNotFoundException e)
+                    catch (FileNotFoundException ex1)
                     {
-                        e.printStackTrace();
+                        ex1.printStackTrace();
+                    }
+                    catch (Exception ex0)
+                    {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                        builder.setTitle("Error");
+                        builder.setMessage("Error opening existing log: file is invalid or corrupt.")
+                                .setCancelable(false)
+                                .setPositiveButton("OK", new DialogInterface.OnClickListener()
+                                {
+                                    public void onClick(DialogInterface dialog, int id)
+                                    {
+
+                                    }
+                                });
+                        AlertDialog alert = builder.create();
+                        alert.show();
                     }
                 }
             }).showDialog();
