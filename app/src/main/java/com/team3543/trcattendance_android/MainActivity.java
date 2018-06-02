@@ -619,7 +619,7 @@ public class MainActivity extends AppCompatActivity
                  // DataStore.allAttendants = new ArrayList<Attendant>();
                  Attendant lol = DataStore.attendanceLog.attendantsList.get(i);
                  DataStore.allAttendants.add(lol);
-                 if(DataStore.checkInList.indexOf(lol) == -1)
+                 if(DataStore.checkInList.indexOf(lol) == -1 || DataStore.checkOutList.indexOf(lol) != -1)
                  {
                      DataStore.checkInList.add(lol);
                  }
