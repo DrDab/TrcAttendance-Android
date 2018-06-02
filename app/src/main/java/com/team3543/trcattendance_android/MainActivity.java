@@ -790,6 +790,9 @@ public class MainActivity extends AppCompatActivity
         if (b)
         {
             // TODO: Unlock the check-in/check-out buttons upon verification
+
+            DataStore.editPopulated = true;
+
             disableButton(createMeetingButton);
 
             disableEditText(meetingMM);
