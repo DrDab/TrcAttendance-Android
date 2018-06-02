@@ -82,10 +82,6 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         // check if we have storage permissions first
         if (DataStore.verifyStoragePermissions(this))
@@ -97,9 +93,15 @@ public class MainActivity extends AppCompatActivity
             AlertDialog alertDialog1 = new AlertDialog.Builder(MainActivity.this).create();
             alertDialog1.setTitle("Warning! (DON'T CLOSE)");
             alertDialog1.setMessage("Please go into Settings > Apps > \"TRC Attendance Logger\" > Permissions and check Storage.");
+            alertDialog1.setCanceledOnTouchOutside(false);
             alertDialog1.show();
             return;
         }
+
+        setContentView(R.layout.activity_main);
+
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         Runnable keepAlive = new Runnable()
         {
