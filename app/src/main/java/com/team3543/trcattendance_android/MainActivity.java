@@ -616,7 +616,7 @@ public class MainActivity extends AppCompatActivity
             // add new attendants into the list.
             for(int i = 0; i < DataStore.attendanceLog.attendantsList.size(); i++)
             {
-                 DataStore.allAttendants = new ArrayList<Attendant>();
+                 // DataStore.allAttendants = new ArrayList<Attendant>();
                  Attendant lol = DataStore.attendanceLog.attendantsList.get(i);
                  DataStore.allAttendants.add(lol);
                  if(DataStore.checkInList.indexOf(lol) == -1)
