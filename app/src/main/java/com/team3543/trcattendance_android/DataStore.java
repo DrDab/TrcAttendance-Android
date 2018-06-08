@@ -96,6 +96,8 @@ public class DataStore
                 throw new IllegalArgumentException("Invalid meeting info.");
             }
 
+            attendanceLog.createSession(sessionInfo);
+            
             // onCreateMeeting(sessionInfo[0], sessionInfo[1], sessionInfo[2], sessionInfo[3], sessionInfo[4]);
             // meetingPane.setMeetingInfo(sessionInfo[0], sessionInfo[1], sessionInfo[2], sessionInfo[3], sessionInfo[4]);
             existingMeetingInfo = sessionInfo;
