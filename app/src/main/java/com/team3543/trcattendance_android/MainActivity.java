@@ -706,6 +706,12 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Round the current time and date to the nearest 30 minutes, and automatically populate
+     * the meeting time and date fields to that when the create meeting button is clicked.
+     *
+     * @param view
+     */
     public void onCreateMeetingButtonClicked(View view)
     {
         String[] info = null;
