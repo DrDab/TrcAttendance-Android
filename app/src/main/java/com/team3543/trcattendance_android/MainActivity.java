@@ -667,6 +667,22 @@ public class MainActivity extends AppCompatActivity
                 }
             }
 
+            Collections.sort(tmpInFin, new Comparator<Attendant>()
+            {
+                public int compare(Attendant a1, Attendant a2)
+                {
+                    return a1.toString().compareTo(a2.toString());
+                }
+            });
+
+            Collections.sort(tmpOut, new Comparator<Attendant>()
+            {
+                public int compare(Attendant a1, Attendant a2)
+                {
+                    return a1.toString().compareTo(a2.toString());
+                }
+            });
+
             Collections.sort(tmpAll, new Comparator<Attendant>()
             {
                 public int compare(Attendant a1, Attendant a2)

@@ -114,9 +114,7 @@ public class EditAttendantList extends AppCompatActivity
                 Log.d("EditAttendantsList", "attendants[" + i + "]= " + attendantNames.get(i));
                 tmp[i] = attendantNames.get(i);
             }
-            DataStore.tempAddStudents = tmp;
-            DataStore.attendanceLog.updateAttendants(DataStore.tempAddStudents);
-            // DataStore.writeInit();
+            DataStore.attendanceLog.updateAttendants(tmp);
             DataStore.havePrevAttendants = true;
             MainActivity.newFlag = true;
             Log.d("EnableEditing","Boolean flag set to true");

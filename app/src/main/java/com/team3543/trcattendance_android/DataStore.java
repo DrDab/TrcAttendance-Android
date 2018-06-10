@@ -54,8 +54,6 @@ public class DataStore
 
     public static File readDirectory = null;
 
-    public static String[] tempAddStudents = null;
-
     public static AttendanceLog attendanceLog = null;
 
     public static ArrayList<Attendant> checkInList = null;
@@ -313,7 +311,7 @@ public class DataStore
     }   //checkOutAttendant
 
     /**
-     * This method creates a String array that contains the date, start time, end time, place and meeting location
+     * This method returns a String array that contains the date, start time, end time, place and meeting location
      * of the current meeting session.
      *
      * @param month
