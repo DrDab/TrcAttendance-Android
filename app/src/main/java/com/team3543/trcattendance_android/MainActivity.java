@@ -834,7 +834,6 @@ public class MainActivity extends AppCompatActivity
 
     public void checkIn(View view)
     {
-        //
         ArrayAdapter<Attendant> checkInAdapter = new ArrayAdapter<Attendant>(this, android.R.layout.select_dialog_multichoice);
         for(int i = 0; i < DataStore.checkInList.size(); i++)
         {

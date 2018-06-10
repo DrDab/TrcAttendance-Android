@@ -12,6 +12,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Scanner;
 
 import attendance.Attendant;
@@ -282,6 +284,22 @@ public class DataStore
             checkInList.remove(checkInList.indexOf(attendant));
             checkOutList.add(attendant);
             attendanceLog.setFileDirty();
+
+            Collections.sort(checkInList, new Comparator<Attendant>()
+            {
+                public int compare(Attendant a1, Attendant a2)
+                {
+                    return a1.toString().compareTo(a2.toString());
+                }
+            });
+
+            Collections.sort(checkOutList, new Comparator<Attendant>()
+            {
+                public int compare(Attendant a1, Attendant a2)
+                {
+                    return a1.toString().compareTo(a2.toString());
+                }
+            });
         }
     }   //checkInAttendant
 
@@ -307,6 +325,22 @@ public class DataStore
             checkOutList.remove(checkOutList.indexOf(attendant));
             checkInList.add(attendant);
             attendanceLog.setFileDirty();
+
+            Collections.sort(checkInList, new Comparator<Attendant>()
+            {
+                public int compare(Attendant a1, Attendant a2)
+                {
+                    return a1.toString().compareTo(a2.toString());
+                }
+            });
+
+            Collections.sort(checkOutList, new Comparator<Attendant>()
+            {
+                public int compare(Attendant a1, Attendant a2)
+                {
+                    return a1.toString().compareTo(a2.toString());
+                }
+            });
         }
     }   //checkOutAttendant
 
