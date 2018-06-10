@@ -170,7 +170,7 @@ public class DataStore
         }
         File readFile = new File(readDirectory, "SessionLog.txt");
         SESSION_LOG_FILE_NAME = readFile.toString();
-    }
+    }   //initIO
 
     public static boolean fileExists(String name)
     {
@@ -180,7 +180,7 @@ public class DataStore
             return true;
         }
         return false;
-    }
+    }   //fileExists
 
     /**
      * This method will create a new CSV file, load the file into the attendance library and initiate the ArrayLists
@@ -206,7 +206,7 @@ public class DataStore
             e.printStackTrace();
         }
         DataStore.editPopulated = false;
-    }
+    }   //newCSV
 
     /**
      * This method will load an existing CSV file into the attendance library, and populate the ArrayLists
@@ -239,7 +239,7 @@ public class DataStore
         isOkToClose = true;
         isOkToEdit = true;
         DataStore.editPopulated = false;
-    }
+    }   //loadCSV
 
     /**
      * This method checks if the current session has system permissions for accessing local storage.
@@ -260,7 +260,7 @@ public class DataStore
 
         }
         return true;
-    }
+    }   //verifyStoragePermissions
 
     /**
      * This method checks in the selected attendant by moving the attendant from the check-in
@@ -411,6 +411,6 @@ public class DataStore
         tmp[3] = place;
         tmp[4] = meeting;
         return tmp;
-    }
+    }   //getSessionInfo
 
 }

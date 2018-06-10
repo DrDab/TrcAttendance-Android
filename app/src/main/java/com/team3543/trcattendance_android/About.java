@@ -57,9 +57,9 @@ public class About extends AppCompatActivity
     public void mystery(View view)
     {
         activate++;
-        if(activate >= 10)
+        if(activate % 10 == 0)
         {
-            MediaPlayer player = MediaPlayer.create(this, R.raw.dimmadubstep);
+            MediaPlayer player = MediaPlayer.create(this, R.raw.soho_atpeace);
             try {
                 // player.prepare();
                 player.start();
