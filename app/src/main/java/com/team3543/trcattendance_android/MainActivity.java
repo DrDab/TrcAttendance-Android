@@ -76,7 +76,6 @@ public class MainActivity extends AppCompatActivity
     private Button checkOutButton;
 
     public static boolean newFlag = false;
-    public static String nameFlag = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)

@@ -49,7 +49,7 @@ public class DataStore
     public static final long serialVersionUID = 1L;
     public static final String PROGRAM_TITLE = "Trc Attendance Logger";
     public static final String COPYRIGHT_MSG = "Copyright (c) Titan Robotics Club";
-    public static final String PROGRAM_VERSION = "[version 1.0.0]";
+    public static final String PROGRAM_VERSION = "[version 1.0.7a]";
     public static String SESSION_LOG_FILE_NAME = "SessionLog.txt";
 
     public static File readDirectory = null;
@@ -158,6 +158,9 @@ public class DataStore
         return System.currentTimeMillis();
     }
 
+    /**
+     * This method will dynamically set the directory for individual phones in preparation for file I/O.
+     */
     public static void initIO()
     {
         readDirectory = new File(Environment.getExternalStorageDirectory(), "TrcAttendance");
@@ -179,17 +182,22 @@ public class DataStore
         return false;
     }
 
+    /**
+     * This method will create a new CSV file, load the file into the attendance library and initiate the ArrayLists
+     * used to track participants.
+     * @param name
+     */
     public static void newCSV(String name)
     {
         havePrevAttendants = false;
         checkInList = new ArrayList<Attendant>();
         checkOutList = new ArrayList<Attendant>();
         allAttendants = new ArrayList<Attendant>();
-        File test = null;
+        File tmpRef = null;
         try
         {
-            test = new File(readDirectory, name);
-            attendanceLog = new AttendanceLog(test, true);
+            tmpRef = new File(readDirectory, name);
+            attendanceLog = new AttendanceLog(tmpRef, true);
             isOkToClose = true;
             isOkToEdit = true;
         }
@@ -197,10 +205,16 @@ public class DataStore
         {
             e.printStackTrace();
         }
-        MainActivity.nameFlag = name;
         DataStore.editPopulated = false;
     }
 
+    /**
+     * This method will load an existing CSV file into the attendance library, and populate the ArrayLists
+     * containing the attendant names.
+     *
+     * @throws FileNotFoundException if the CSV file referenced does not exist.
+     * @param name
+     */
     public static void loadCSV(String name)
     {
         havePrevAttendants = false;
