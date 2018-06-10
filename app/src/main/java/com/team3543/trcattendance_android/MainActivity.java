@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 
 import attendance.Attendant;
 
@@ -380,6 +381,10 @@ public class MainActivity extends AppCompatActivity
                         {
                             public void onClick(DialogInterface dialog, int whichButton)
                             {
+                                for(int i = 0; i < DataStore.checkOutList.size(); i++)
+                                {
+                                    DataStore.checkOutAttendant(DataStore.checkOutList.get(i), DataStore.getEpochTime(), false);
+                                }
                                 try
                                 {
                                     DataStore.attendanceLog.closeLogFile();
@@ -452,6 +457,10 @@ public class MainActivity extends AppCompatActivity
         {
             try
             {
+                for(int i = 0; i < DataStore.checkOutList.size(); i++)
+                {
+                    DataStore.checkOutAttendant(DataStore.checkOutList.get(i), DataStore.getEpochTime(), false);
+                }
                 DataStore.attendanceLog.closeLogFile();
             }
             catch (FileNotFoundException e)
@@ -628,13 +637,19 @@ public class MainActivity extends AppCompatActivity
             ArrayList<Attendant> tmpOut = new ArrayList<Attendant>();
             ArrayList<Attendant> tmpAll = new ArrayList<Attendant>();
 
+            HashMap<Attendant, Boolean> iDoge = new HashMap<Attendant, Boolean>();
+
             // remove attendants that have been removed from the list.
             for(int i = 0; i < DataStore.checkInList.size(); i++)
             {
                 if((DataStore.attendanceLog).findAttendant(DataStore.checkInList.get(i).toString()) != null)
                 {
                     tmpIn.add(DataStore.checkInList.get(i));
-                    tmpAll.add(DataStore.checkInList.get(i));
+                    if(!iDoge.containsKey(DataStore.checkInList.get(i)))
+                    {
+                        tmpAll.add(DataStore.checkInList.get(i));
+                        iDoge.put(DataStore.checkInList.get(i), false);
+                    }
                 }
             }
             for(int i = 0; i < DataStore.checkOutList.size(); i++)
@@ -642,7 +657,11 @@ public class MainActivity extends AppCompatActivity
                 if((DataStore.attendanceLog).findAttendant(DataStore.checkOutList.get(i).toString()) != null)
                 {
                     tmpOut.add(DataStore.checkOutList.get(i));
-                    tmpAll.add(DataStore.checkOutList.get(i));
+                    if(!iDoge.containsKey(DataStore.checkInList.get(i)))
+                    {
+                        tmpAll.add(DataStore.checkOutList.get(i));
+                        iDoge.put(DataStore.checkOutList.get(i), false);
+                    }
                 }
             }
 
@@ -660,7 +679,7 @@ public class MainActivity extends AppCompatActivity
 
             for(int i = 0; i < tmpIn.size(); i++)
             {
-                Attendant attdtmp =  tmpIn.get(i);
+                Attendant attdtmp = tmpIn.get(i);
                 if(attdtmp != null)
                 {
                     tmpInFin.add(attdtmp);
