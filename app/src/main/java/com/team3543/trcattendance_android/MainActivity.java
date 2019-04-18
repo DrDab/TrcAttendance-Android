@@ -657,7 +657,7 @@ public class MainActivity extends AppCompatActivity
                 if((DataStore.attendanceLog).findAttendant(DataStore.checkOutList.get(i).toString()) != null)
                 {
                     tmpOut.add(DataStore.checkOutList.get(i));
-                    if(!iDoge.containsKey(DataStore.checkInList.get(i)))
+                    if(!iDoge.containsKey(DataStore.checkOutList.get(i)))
                     {
                         tmpAll.add(DataStore.checkOutList.get(i));
                         iDoge.put(DataStore.checkOutList.get(i), false);
