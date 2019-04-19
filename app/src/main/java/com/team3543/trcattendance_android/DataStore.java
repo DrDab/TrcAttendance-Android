@@ -51,7 +51,7 @@ public class DataStore
     public static final long serialVersionUID = 1L;
     public static final String PROGRAM_TITLE = "Trc Attendance Logger";
     public static final String COPYRIGHT_MSG = "Copyright (c) Titan Robotics Club";
-    public static final String PROGRAM_VERSION = "[version 1.0.8a]";
+    public static final String PROGRAM_VERSION = "[version 1.0.8a-lts]";
     public static String SESSION_LOG_FILE_NAME = "SessionLog.txt";
 
     public static File readDirectory = null;
